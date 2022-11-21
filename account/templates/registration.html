@@ -17,7 +17,7 @@
             <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
             <div class="container">
                 <div class="row gx-lg-5 align-items-center">
-                    <form action="#" method="post">
+                    
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
@@ -25,37 +25,39 @@
                                 </div>  
                                 <div class="card-body">
                                     <div class="form-group p-4">
+                                    <form action="{% url 'create-user' %}" method="post">
+                                        {% csrf_token %}
                                         <div class="row">
 
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3">
-                                                    <input type="text" class="form-control" id="floatingInput" placeholder="First name">
+                                                    <input type="text" class="form-control" name="f_name" id="floatingInput" placeholder="First name">
                                                     <label for="floatingInput">First Name</label>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3">
-                                                    <input type="text" class="form-control" id="floatingInput" placeholder="Last name">
+                                                    <input type="text" class="form-control" name="l_name" id="floatingInput" placeholder="Last name">
                                                     <label for="floatingInput">Last Name</label>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-floating mb-3">
-                                                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                                    <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
                                                     <label for="floatingInput">Email address</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3">
-                                                    <input type="text" class="form-control" id="floatingInput" placeholder="phone number">
+                                                    <input type="text" class="form-control" name="phone" id="floatingInput" placeholder="phone number">
                                                     <label for="floatingInput">Phone Number</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                                    <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password">
                                                     <label for="floatingPassword">Password</label>
                                                     <small id="emailHelp" class="form-text text-muted">We'll never share your password with anyone else.</small>
                                                 </div>
@@ -66,11 +68,13 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </form>
+                                    
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    
                     
                 </div>
             </div>
