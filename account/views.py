@@ -45,3 +45,6 @@ def login(request):
         return redirect('gotoLogin')
     #return redirect('createyourshop')
 
+def logout(request):
+    request.session.flush()
+    return redirect('/account/login/')
