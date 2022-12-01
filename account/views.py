@@ -5,6 +5,12 @@ from .models import User,Seller,Company
 def gotoRegistration(request):
     return render(request, 'registration.html')
 
+def gotoRegistration_Seller(request):
+    return render(request, 'seller_registration.html')
+
+def gotoRegistration_Company(request):
+    return render(request, 'company_registration.html')
+
 def gotoLogin(request):
     return render(request, 'login.html')
 
@@ -18,6 +24,18 @@ def registerUser(request):
     user = User.objects.create(first_name = f_name, last_name = l_name, email = email, phone= phone, password = password)
     user.save()
     return redirect('gotoLogin')
+
+def registerSeller(request):
+    f_name = request.POST.get("f_name")
+    l_name = request.POST.get("l_name")
+    shop_name = request.POST.get("shop_name")
+    email = request.POST.get("email")
+    phone = request.POST.get("phone")
+    password = request.POST.get("password")
+    seller = Seller.objects.create(first_name = f_name, last_name = l_name,shop_name=shop_name, email = email, phone= phone, password = password)
+    seller.save()
+    return redirect('gotoLogin')
+
 
 def login(request):
     input_email_or_mobile = request.GET.get("email_or_mobile")
