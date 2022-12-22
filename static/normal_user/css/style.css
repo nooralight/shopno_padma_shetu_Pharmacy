@@ -6813,8 +6813,8 @@ hr {
 ================================================== */
 .products-with-sidebar-section {
   background: #f9f9f9;
-  padding: 80px 0;
-  margin-top: 80px;
+  padding: 60px 0;
+  margin-top: 20px;
 }
 .products-with-sidebar-section .best-selling-products h3 {
   font-size: 22px;
@@ -6830,7 +6830,7 @@ hr {
             align-items: flex-start;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
-    margin-top: 50px;
+    margin-top: 20px;
     margin: 50px -7.5px 0;
   }
   .products-with-sidebar-section .product-sidebar > div {

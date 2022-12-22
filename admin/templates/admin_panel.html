@@ -96,6 +96,12 @@
 <body>
     <div class="container container-fluid">
         <div class="p-5">
+            <div class="d-flex justify-content-center p-1">
+                <h2 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Health Hub</h2>
+            </div>
+            <div class="d-flex justify-content-center p-2">
+                <h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Admin Dashboard</h2>
+            </div>
             <div class="row">
                 <div class="col-md-2">
                     <nav>
@@ -103,8 +109,8 @@
                             <li class="logo"><img src="https://i.imgur.com/E26Pj54.png"></li>
                             <li><a href="{% url 'gotoAdmin' %}"><i class="fa fa-home"></i>&nbsp;  Admin Panel</a></li>
                             <li><a href="{% url 'gotoUsers' %}"><i class="fa fa-users"></i>&nbsp;  Users</a></li>
-                            <li><a href="#"><i class="fa fa-book"></i>&nbsp;  Book</a></li>                 
-                            <li><a href="#"><i class="fa fa-picture-o"></i>&nbsp;  Pictures</a></li>
+                            <li><a href="#"><i class="fa fa-users"></i>&nbsp;  Retailers</a></li>                 
+                            <li><a href="#"><i class="fa fa-users"></i>&nbsp;  Companies</a></li>
                             <li><a href="#"><i class="fa fa-phone"></i>&nbsp; Contact</a></li>
                             <li><a href="{% url 'logout' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
@@ -113,6 +119,7 @@
                         </ul>
                     </nav>
                 </div>
+                
                 <div class="col-md-10">
                     <div class="row">
                         <div class="col-md-4 p-3">
@@ -155,7 +162,7 @@
                         </div>
                         <div class="col-md-4 p-3">
                             <div class="card text-white bg-success mb-3" style="max-width: 15rem;min-width: 15rem;max-height: 8rem;min-height: 8rem;">
-                                <div class="card-header "><h5 class="text-center">Medicine Sold</h5></div>
+                                <div class="card-header "><h5 class="text-center">Products Sold</h5></div>
                                 <div class="card-body bg-light">
                                     
                                     <h3 class="card-text text-dark text-center">1665</h3>
@@ -164,7 +171,7 @@
                         </div>
                         <div class="col-md-4 p-3">
                             <div class="card text-white bg-success mb-3" style="max-width: 15rem;min-width: 15rem;max-height: 8rem;min-height: 8rem;">
-                                <div class="card-header "><h5 class="text-center">Medicine in Stock</h5></div>
+                                <div class="card-header "><h5 class="text-center">Products in Stock</h5></div>
                                 <div class="card-body bg-light">
                                     
                                     <h3 class="card-text text-dark text-center">3050</h3>
