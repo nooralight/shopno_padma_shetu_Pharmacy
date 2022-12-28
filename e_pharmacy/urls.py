@@ -20,4 +20,5 @@ urlpatterns = [
     path('account/', include('account.urls'), name = 'account'),
     path('',include('normal_user.urls'),name='normal-home'),
     path('admin/',include('admin.urls'),name='admin'),
+    path('doctor/',include('doctor.urls'),name='doctor'),
 ]

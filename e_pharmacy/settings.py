@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'account',
     'normal_user',
     'admin',
+    'doctor',
 ]
 
 MIDDLEWARE = [
