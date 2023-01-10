@@ -14,6 +14,8 @@ def gotoRegistration_Company(request):
 def gotoLogin(request):
     return render(request, 'login.html')
 
+def gotoSellerLogin(request):
+    return render(request,"seller_login.html")
 
 def registerUser(request):
     f_name = request.POST.get("f_name")
@@ -61,6 +63,28 @@ def login(request):
     except User.DoesNotExist:
         print("Email or Phone does not exist")
         return redirect('gotoLogin')
+    #return redirect('createyourshop')
+
+def login_shop(request):
+    input_email_or_mobile = request.GET.get("email_or_mobile")
+    print(input_email_or_mobile)
+    input_password = request.GET.get("password")
+
+    try:
+        registered_shop = Seller.objects.get(email=input_email_or_mobile)
+        
+        if input_password == registered_shop.password:
+            print("login success")
+            #return redirect('createyourshop')
+            request.session['user_id'] = registered_shop.id           
+            response = redirect('/seller/')               
+            return response
+        else:
+            print("wrong password")
+            return redirect('seller-Login')
+    except User.DoesNotExist:
+        print("Email or Phone does not exist")
+        return redirect('seller-Login')
     #return redirect('createyourshop')
 
 def logout(request):

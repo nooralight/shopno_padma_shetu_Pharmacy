@@ -144,7 +144,7 @@
                                     </button>
                                     <ul class="main_menu_list ul_li">
                                         <li><a class="nav-link" href="{% url 'gotoHome' %}">Home</a></li>
-                                        <li><a class="nav-link" href="{% url 'gotoShop' %}">Products</a></li>
+                                        <li><a class="nav-link" href="{% url 'gotoProducts' %}">Products</a></li>
                                         <li><a class="nav-link" href="{% url 'gotoVendor' %}">Shops</a></li>
                                         <li><a class="nav-link" href="{% url 'gotoDoctors' %}">Online Doctors</a></li>
                                         <li><a class="nav-link" href="{% url 'gotoContact' %}">Contact Us</a></li>
@@ -483,6 +483,7 @@
                                     <h3>We have so many shops from outside Now</h3>
                                 </div>
                                 <div class="product-area clearfix">
+                                    {% for shop in shops %}
                                     <div class="grid">
                                         <div class="product-pic">
                                             <img src="{% static 'normal_user/images/shop/noorPharma.jpg' %}" style="width:240px;height:240px;"  alt>
@@ -490,23 +491,16 @@
                                         </div>
                                         <div class="details">
                                             <p style="color: #cca3a3;">Since 2011</p>
-                                            <h4><a href="{% url 'gotoShop' %}">Noor Pharmacy</a></h4>
+                                            <h4><a href="{% url 'gotoShop' shop.id %}">{{ shop.shop_name }}</a></h4>
                                             <p>Adress: 5171 W Campbell Ave undefined Kent, Utah 53127 United States</p>
-                                            <p>Call us: 01571238110</p>
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
-                                            </div>
+                                            <p>Call us: {{ shop.phone }}</p>
                                             <h5 style="color: rgb(16, 144, 16);">185 items</h5>
                                             <div class="add-cart-area">
-                                                <a class="btn btn_primary" href="{% url 'gotoShop' %}" data-animation="fadeInUp2" data-delay=".8s">View Store</a>
+                                                <a class="btn btn_primary" href="{% url 'gotoShop' id=shop.id %}" data-animation="fadeInUp2" data-delay=".8s">View Store</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="grid">
+                                    {% comment %} <div class="grid">
                                         <div class="product-pic">
                                             <img  src="{% static 'normal_user/images/shop/asterPharma.jpg' %}" style="width:240px;height:240px;" alt>
                                             
@@ -620,7 +614,8 @@
                                                 <a class="btn btn_primary" href="{% url 'gotoShop' %}" data-animation="fadeInUp2" data-delay=".8s">View Store</a>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> {% endcomment %}
+                                    {% endfor %}
                                 </div>
                             </div>
                             

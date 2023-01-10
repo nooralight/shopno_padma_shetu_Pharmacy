@@ -30,6 +30,8 @@ class Seller(models.Model):
     first_name = models.TextField(max_length=255)
     last_name = models.TextField(max_length=255)
     shop_name = models.TextField(max_length=255,unique=True)
+    photo = models.TextField(max_length=255, blank=True, null=True)
+    address = models.TextField(max_length=255, blank=True,null=True)
     email = models.EmailField(max_length=255,unique=True)
     phone = models.TextField(max_length=255)
     password = models.TextField(max_length=255)

@@ -373,14 +373,14 @@
             <div class="breadcrumb_section">
                 <div class="container">
                     <ul class="breadcrumb_nav ul_li">
-                        <li><a href="index.html">Aster Phahrmacy</a></li>
+                        <li><a href="index.html">{{ shop.shop_name }}</a></li>
                         <li>Product Grid</li>
                     </ul>
                 </div>
             </div>
 
             <div class="d-flex justify-content-center">
-                <h1>Aster Pharmacy</h1>
+                <h1>{{ shop.shop_name }}</h1>
             </div>
             <!-- breadcrumb_section - end
             ================================================== -->
@@ -497,9 +497,10 @@
                                 <div class="tab-pane fade show active" id="home" role="tabpanel">
                                     <div class="shop-product-area shop-product-area-col">
                                         <div class="product-area shop-grid-product-area clearfix">
+                                            {% for product in products %}
                                             <div class="grid">
                                                 <div class="product-pic">
-                                                    <img src="{% static 'normal_user/images/shop/napa.jpg' %}" style="width:200px;height:200px;"  alt />
+                                                    <img src="{{ product.product_photo }}" style="width:200px;height:200px;"  alt />
                                                     <div class="actions">
                                                         <ul>
                                                             <li>
@@ -571,20 +572,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="details">
-                                                    <h4><a href="#">Napa</a></h4>
-                                                    <p><a href="#">Square Company</a></p>
-                                                    <p>1 Packet</p>
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
+                                                    <h4><a href="{% url 'productDetails' product.id %}">{{ product.name }}</a></h4>
+                                                    <p>Brand: {{ product.brand_name }}</p>
+                                                    <p>Categroy: {{ product.category }}</p>
+                                                    {% comment %} <p>{{ product.quantity }}</p> {% endcomment %}
+                                                    
                                                     <span class="price">
                                                         <ins>
                                                             <span class="woocommerce-Price-amount amount">
-                                                                <bdi> <span class="woocommerce-Price-currencySymbol">55&#2547 </bdi>
+                                                                <bdi> <span class="woocommerce-Price-currencySymbol">{{ product.price }}&#2547 </bdi>
                                                             </span>
                                                         </ins>
                                                     </span>
@@ -593,7 +589,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="grid">
+                                            {% comment %} <div class="grid">
                                                 <div class="product-pic">
                                                     <img src="{% static 'normal_user/images/shop/sultolin.jpg' %}" style="width:200px;height:200px;" alt />
                                                     <span class="theme-badge">Sale</span>
@@ -1403,23 +1399,12 @@
                                                         <button class="add-to-cart">Add to cart</button>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> {% endcomment %}
+                                            {% endfor %}
                                         </div>
                                     </div>
 
-                                    <div class="pagination_wrap">
-                                        <ul class="pagination_nav">
-                                            <li class="active"><a href="#!">01</a></li>
-                                            <li><a href="#!">02</a></li>
-                                            <li><a href="#!">03</a></li>
-                                            <li class="prev_btn">
-                                                <a href="#!"><i class="fal fa-angle-left"></i></a>
-                                            </li>
-                                            <li class="next_btn">
-                                                <a href="#!"><i class="fal fa-angle-right"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    
                                 </div>
 
                                 <div class="tab-pane fade" id="profile" role="tabpanel">
