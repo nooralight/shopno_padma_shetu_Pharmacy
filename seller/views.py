@@ -8,10 +8,10 @@ from account.models import Seller
 def gotoDashboard(request):
     shop = Seller.objects.get(id = request.session['user_id'])
     context = {"shop_name":shop.shop_name}
-    return render(request,"seller_dashboard.html",context)
+    return render(request,"seller_dashboard_c.html",context)
 
 def gotoAddProduct(request):
-    return render(request,"add_product.html")
+    return render(request,"add_product_c.html")
 
 def upload(request):
     shop = Seller.objects.get(id=request.session['user_id'])
