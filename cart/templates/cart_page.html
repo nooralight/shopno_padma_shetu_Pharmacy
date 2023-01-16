@@ -86,7 +86,8 @@
                     <!-- End -->
                   </div>
                 </div>
-                <form action="#" method="post" enctype="multipart/form-data">
+                {% if carts %}
+                <form action="{% url 'confirm-cart' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row py-5 p-4 bg-white rounded shadow-sm">
                         <div class="col-lg-6">
@@ -95,7 +96,11 @@
                           <div class="p-4">
                             <p class="font-italic mb-4">If you buy prescribed medicine, you must have to upload scan photo of the prescription. Otherwise the order will be cancelled.</p>
                             <div class="input-group mb-4 border rounded-pill p-2">
-                                <input type="file" name="myfile">
+                              {% if prescription_need%}
+                                <input type="file" required name="myfile">
+                              {% else %}
+                              <input type="file" name="myfile">
+                              {% endif %}
                             </div>
                           </div>
                           
@@ -116,6 +121,7 @@
                         </div>
                       </div>  
                 </form>
+                {% endif %}
                 
           
               </div>

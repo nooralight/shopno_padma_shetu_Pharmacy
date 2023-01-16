@@ -4,18 +4,27 @@ from .models import Cart
 from account.models import User,Seller
 from seller.models import Shop_product
 from datetime import datetime
+from normal_user.models import OrderHistory_customer
 
 def gotoCartPage(request):
-    carts = Cart.objects.filter(customer_id=request.session['user_id'])
-    carts = carts.filter(active= "Yes")
+    carts = Cart.objects.filter(customer_id=request.session['user_id'], active ="Yes")
+    #carts = carts.filter(active= "Yes")
     total_price = 0.0
+    prescr_needed= False
     for cart in carts:
         p =cart.total_price
-        print(p)
-        
+        print(p)      
         total_price = total_price+float(p)
+    
+    for cart in carts:
+        product_id = cart.product_id
+        product = Shop_product.objects.get(id=product_id)
+        if product.category=="Prescription Medicines":
+            prescr_needed= True
+            break
+
     print("Total Price= ",total_price)
-    context = {"carts":carts,"sub_total":total_price,"total":total_price+30.0}
+    context = {"carts":carts,"sub_total":total_price,"total":total_price+30.0,"prescription_need":prescr_needed}
     return render(request,"cart_page.html",context)
 
 def addingCart(request,id):
@@ -44,16 +53,35 @@ def addingCart(request,id):
     cart.save()
     return redirect("/")
 
-def confirmingCart(request,id):
-    cart_user = Cart.objects.filter(customer_id =request.session['user_id'])
+def confirmingCart(request):
+    carts = Cart.objects.filter(customer_id =request.session['user_id'])
+    prescr_needed= False
+    current_dateTime = datetime.now()
+    finished = True
+    for cart in carts:
+        product_id = cart.product_id
+        product = Shop_product.objects.get(id=product_id)
+        if product.category=="Prescription Medicines":
+            # cart_up = Cart.objects.filter(id = cart.id)
+            # cart_up.update(active="No")
+            prescr_needed= True
+            break
+    if prescr_needed==True:
+        presc = request.FILES['presc']
+        fs = FileSystemStorage()
+        name_f = str(request.session['user_id'])+"_"+product.name+presc.name[-4:]
+        filename = fs.save(name_f, presc)
+        uploaded_file_url = fs.url(filename)
+        carts.update(prescription = uploaded_file_url,active ="No")
+        order_history = OrderHistory_customer.objects.create(purchase_date = current_dateTime,cart_id=cart.id,customer_id=request.session['user_id'],total=cart.total_price,verified='No')
+        order_history.save()
+    else:
+        carts.update(active ="No")
+        order_history = OrderHistory_customer.objects.create(purchase_date = current_dateTime,cart_id=cart.id,customer_id=request.session['user_id'],total=cart.total_price,verified='Yes')
+        order_history.save()
+            
     
-    presc = request.FILES['presc']
-    fs = FileSystemStorage()
-    name_f = str(request.session['user_id'])+"_"+presc.name[-4:]
-    filename = fs.save(name_f, presc)
-    uploaded_file_url = fs.url(filename)
-    cart_user.update(prescription = uploaded_file_url)
-    return render(request, 'core/simple_upload.html', {'uploaded_file_url': uploaded_file_url})
+    return redirect("/")
 
 def deleteCartItem(request, id):
     print(id)
