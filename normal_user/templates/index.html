@@ -106,7 +106,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col col-lg-3 col-md-3 col-sm-12">
+                        <!-- <div class="col col-lg-3 col-md-3 col-sm-12">
                             <button class="mobile_menu_btn2 navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_menu_dropdown" aria-controls="main_menu_dropdown" aria-expanded="false" aria-label="Toggle navigation">
                                 <i class="fal fa-bars"></i>
                             </button>
@@ -119,14 +119,17 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <span class="cart_icon">
+                                        
+                                        <a href="{% url 'goto-cart' %}">
                                             <i class="icon icon-ShoppingCart"></i>
-                                            <small class="cart_counter">3</small>
-                                        </span>
+                                            
+                                        </a>
+                                            
+                                        
                                     </li>
                                </ul>
                             </button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -148,6 +151,7 @@
                                         <li><a class="nav-link" href="{% url 'gotoVendor' %}">Shops</a></li>
                                         <li><a class="nav-link" href="{% url 'gotoDoctors' %}">Online Doctors</a></li>
                                         <li><a class="nav-link" href="{% url 'gotoContact' %}">Contact Us</a></li>
+                                        <li><a class="nav-link" href="{% url 'goto-cart' %}">My Cart</a></li>
                                     </ul>
                                 </div>
                             </nav>
