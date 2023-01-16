@@ -8,6 +8,8 @@ def gotoHome(request):
 
 def gotoVendors(request):
     shops= Seller.objects.all()
+    print(type(shops))
+    print(shops)
     context = {"shops": shops}
     return render(request,'vendors.html', context)
 

@@ -17,8 +17,7 @@ def upload(request):
     shop = Seller.objects.get(id=request.session['user_id'])
     if request.method == 'POST':
         upload = request.FILES['upload']
-        fss = FileSystemStorage()
-        
+        fss = FileSystemStorage()       
         name = request.POST.get("name")
         brand_name = request.POST.get("brand_name")
         quantity = request.POST.get("shop_name")
@@ -36,10 +35,48 @@ def upload(request):
 def gotoListProduct(request):
     products = Shop_product.objects.filter(shop_id = int(request.session['user_id']))
     context ={"products":products}
-    return render(request, "product_list.html",context)
+    return render(request, "product_list_c.html",context)
+
+def editShop(request):
+    shop = Seller.objects.get(id=request.session['user_id'])
+    context = {"shop":shop}
+    return render(request,"edit_shop.html",context)
+
+def editing_shop(request):
+    shop = Seller.objects.filter(id=request.session['user_id'])
+    f_name = request.POST.get("f_name")
+    l_name = request.POST.get("l_name")
+    shop_name = request.POST.get("shop_name")
+    email = request.POST.get("email")
+    phone = request.POST.get("phone")
+    address = request.POST.get("address")
+    # if request.FILES['photo'] is not None:
+    #     photo = request.FILES['photo']
+    #     fss = FileSystemStorage()
+    #     name_photo = str(shop[0].id)+"_"+shop[0].email+photo.name[-4:]
+    #     file = fss.save(name_photo, photo)
+    #     file_url = fss.url(file)
+    #     shop.update(first_name = f_name,last_name = l_name,photo=file_url,shop_name = shop_name,email=email,phone=phone,address =address)
+    # else:
+    shop.update(first_name = f_name,last_name = l_name,shop_name = shop_name,email=email,phone=phone,address =address)
+    #shop.save()
+    return redirect('/seller/')
 
 def deleteProduct(request, id):
     print(id)
     product = Shop_product.objects.get(id=id)
     product.delete()
     return redirect('/seller/product_list/')
+
+def profilePic(request):
+    return render(request, "profilepic.html")
+
+def changePic(request):
+    shop = Seller.objects.filter(id=request.session['user_id'])
+    photo = request.FILES['photo']
+    fss = FileSystemStorage()
+    name_photo = str(shop[0].id)+"_"+shop[0].email+photo.name[-4:]
+    file = fss.save(name_photo, photo)
+    file_url = fss.url(file)
+    shop.update(photo=file_url)
+    return redirect('/seller/')
