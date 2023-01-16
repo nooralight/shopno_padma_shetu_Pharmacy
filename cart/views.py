@@ -54,3 +54,9 @@ def confirmingCart(request,id):
     uploaded_file_url = fs.url(filename)
     cart_user.update(prescription = uploaded_file_url)
     return render(request, 'core/simple_upload.html', {'uploaded_file_url': uploaded_file_url})
+
+def deleteCartItem(request, id):
+    print(id)
+    cart = Cart.objects.get(id=id)
+    cart.delete()
+    return redirect("/cart/")

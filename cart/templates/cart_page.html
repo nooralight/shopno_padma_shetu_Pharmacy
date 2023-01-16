@@ -72,6 +72,10 @@
                             </th>
                             <td class="border-0 align-middle"><strong>{{ cart.total_price }}&#2547</strong></td>
                             <td class="border-0 align-middle"><strong>{{ cart.quantity }}</strong></td>
+                            <form method="POST" action="{% url 'delete-cart' cart.id %}">
+                              {% csrf_token %}
+                              <td class="border-0 align-middle"><button type="submit" class="btn btn-light"><i class="fa fa-trash"></i></button></td>
+                            </form>
                             <!-- <td class="border-0 align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a></td> -->
                           </tr>
                           {% endfor %}
