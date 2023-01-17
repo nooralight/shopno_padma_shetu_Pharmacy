@@ -5,6 +5,9 @@ from django.db import models
 class OrderHistory_customer(models.Model):
     purchase_date = models.DateTimeField()
     cart_id = models.BigIntegerField()
+    shop_id = models.BigIntegerField()
+    product_name = models.TextField(max_length=255)
+    quantity = models.TextField(max_length=255,default="sfrs")
     customer_id = models.BigIntegerField()
-    total = models.TextField(max_length=255,default="sdvvsv")
+    total = models.TextField(max_length=255)
     verified = models.CharField(max_length=3,default="Yes")

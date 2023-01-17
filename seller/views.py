@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from .models import Shop_product
 from account.models import Seller
+from normal_user.models import OrderHistory_customer
+from cart.models import Cart
 
 # Create your views here.
 
@@ -80,3 +82,15 @@ def changePic(request):
     file_url = fss.url(file)
     shop.update(photo=file_url)
     return redirect('/seller/')
+
+def gotoOrderList(request):
+    orders = OrderHistory_customer.objects.filter(shop_id = request.session['user_id'])
+    carts= Cart.objects.filter(shop_id=request.session['user_id'],active="No")
+    print(orders)
+    context = {"orders":orders,"carts":carts}
+    return render(request, "order_list.html", context)
+
+def verify_order(request,id):
+    order = OrderHistory_customer.objects.filter(id = id)
+    order.update(verified = "Yes")
+    return redirect("/seller/order_list/")

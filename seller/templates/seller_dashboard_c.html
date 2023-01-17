@@ -30,7 +30,7 @@
                         <a href="{% url 'seller-dashboard' %}" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Seller Dashboard</span> </a>
                         <a href="{% url 'add-product' %}" class="nav_link"> <i class='bx bxs-folder-plus'></i> <span class="nav_name">Add Product</span> </a> 
                         <a href="{% url 'list-product' %}" class="nav_link"> <i class='bx bx-list-ul'></i> <span class="nav_name">Product List</span> </a>
-                        <a href="#" class="nav_link"> <i class='bx bxs-edit'></i> <span class="nav_name">Edit Shop</span> </a>
+                        <a href="{% url 'edit-shop' %}" class="nav_link"> <i class='bx bxs-edit'></i> <span class="nav_name">Edit Shop</span> </a>
                     </div>
                 </div> <a href="{% url 'logout' %}" class="nav_link active"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
             </nav>
@@ -157,11 +157,14 @@
                             </a>                        
                         </div>
                         <div class=col-md-6>
-                            <div class="d-flex justify-content-start">
-                                <div class="d-grid gap-2 col-6">
-                                    <button class="btn btn-primary btn-lg" style="background-color: #4723D9;color: white;" type="button">Check Order History</button>
-                                  </div>
-                            </div>  
+                            <a href="{% url 'order-list-seller' %}" class="custom-card">
+                                <div class="d-flex justify-content-start">
+                                    <div class="d-grid gap-2 col-6">
+                                        <button class="btn btn-primary btn-lg" style="background-color: #4723D9;color: white;" type="button">Check Order History</button>
+                                      </div>
+                                </div>
+                            </a>
+                              
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from account.models import User,Seller
 from seller.models import Shop_product
 from cart.models import Cart
+from .models import OrderHistory_customer
 
 # Create your views here.
 def gotoHome(request):
@@ -34,5 +35,7 @@ def gotoProductDetails(request,id):
     product = Shop_product.objects.get(id=int(id))
     context={"product":product}
     return render(request,'product_details.html', context)
+
+
 
 

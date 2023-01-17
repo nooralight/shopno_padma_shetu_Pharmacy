@@ -54,7 +54,7 @@ def addingCart(request,id):
     return redirect("/")
 
 def confirmingCart(request):
-    carts = Cart.objects.filter(customer_id =request.session['user_id'])
+    carts = Cart.objects.filter(customer_id =request.session['user_id'],active = "Yes")
     prescr_needed= False
     current_dateTime = datetime.now()
     finished = True
@@ -67,18 +67,21 @@ def confirmingCart(request):
             prescr_needed= True
             break
     if prescr_needed==True:
-        presc = request.FILES['presc']
+        presc = request.FILES['myfile']
         fs = FileSystemStorage()
         name_f = str(request.session['user_id'])+"_"+product.name+presc.name[-4:]
         filename = fs.save(name_f, presc)
         uploaded_file_url = fs.url(filename)
-        carts.update(prescription = uploaded_file_url,active ="No")
-        order_history = OrderHistory_customer.objects.create(purchase_date = current_dateTime,cart_id=cart.id,customer_id=request.session['user_id'],total=cart.total_price,verified='No')
-        order_history.save()
+        carts.update(prescription = uploaded_file_url)
+        for cart in carts:
+            order_history = OrderHistory_customer.objects.create(purchase_date = current_dateTime,quantity = cart.quantity,product_name = cart.product_name,cart_id=cart.id,shop_id = cart.shop_id,customer_id=request.session['user_id'],total=cart.total_price,verified='No')
+            order_history.save()
+        carts.update(active="No")
     else:
         carts.update(active ="No")
-        order_history = OrderHistory_customer.objects.create(purchase_date = current_dateTime,cart_id=cart.id,customer_id=request.session['user_id'],total=cart.total_price,verified='Yes')
-        order_history.save()
+        for cart in carts:
+            order_history = OrderHistory_customer.objects.create(purchase_date = current_dateTime,quantity = cart.quantity,product_name = cart.product_name,cart_id=cart.id,shop_id = cart.shop_id,customer_id=request.session['user_id'],total=cart.total_price,verified='Yes')
+            order_history.save()
             
     
     return redirect("/")
@@ -88,3 +91,8 @@ def deleteCartItem(request, id):
     cart = Cart.objects.get(id=id)
     cart.delete()
     return redirect("/cart/")
+
+def gotoOrders_customers(request):
+    orders = OrderHistory_customer.objects.filter(customer_id= request.session['user_id'])
+    context = {"orders":orders}
+    return render(request, "order_history_customer.html", context)

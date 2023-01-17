@@ -11,4 +11,6 @@ urlpatterns=[
     path('editing',views.editing_shop, name='editing-shop'),
     path('profile_pic_change/',views.profilePic, name="edit-profile-pic"),
     path('changing_pic',views.changePic, name="change-pic"),
+    path('order_list/', views.gotoOrderList, name='order-list-seller'),
+    path('confirm_order_seller/<str:id>/', views.verify_order, name='verify-order-seller'),
 ]
