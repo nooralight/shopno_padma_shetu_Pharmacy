@@ -53,4 +53,106 @@ def gotoProductDetails(request,id):
 
 
 
+def category_OTC(request,id):
+    if 'user_id' in request.session:
+        user = User.objects.get(id = request.session['user_id'])
+        if user and user.isAdmin=='0':
+            shop = Seller.objects.get(id=int(id))
+            products = Shop_product.objects.filter(shop_id = int(id),category ="OTC_Medicines")
+            context = {"shop":shop,"products":products}
+            return render(request,'shop_product_grid.html', context)
+        else:
+            return redirect('/account/logout/')
+    else:
+        return redirect('/account/login/')
 
+def category_Pres(request,id):
+    if 'user_id' in request.session:
+        user = User.objects.get(id = request.session['user_id'])
+        if user and user.isAdmin=='0':
+            shop = Seller.objects.get(id=int(id))
+            products = Shop_product.objects.filter(shop_id = int(id),category ="Prescription_Medicines")
+            context = {"shop":shop,"products":products}
+            return render(request,'shop_product_grid.html', context)
+        else:
+            return redirect('/account/logout/')
+    else:
+        return redirect('/account/login/')
+
+def category_Health(request,id):
+    if 'user_id' in request.session:
+        user = User.objects.get(id = request.session['user_id'])
+        if user and user.isAdmin=='0':
+            shop = Seller.objects.get(id=int(id))
+            products = Shop_product.objects.filter(shop_id = int(id),category ="Healthcare_Products")
+            context = {"shop":shop,"products":products}
+            return render(request,'shop_product_grid.html', context)
+        else:
+            return redirect('/account/logout/')
+    else:
+        return redirect('/account/login/')
+
+def category_Device(request,id):
+    if 'user_id' in request.session:
+        user = User.objects.get(id = request.session['user_id'])
+        if user and user.isAdmin=='0':
+            shop = Seller.objects.get(id=int(id))
+            products = Shop_product.objects.filter(shop_id = int(id),category ="Device_Equipment")
+            context = {"shop":shop,"products":products}
+            return render(request,'shop_product_grid.html', context)
+        else:
+            return redirect('/account/logout/')
+    else:
+        return redirect('/account/login/')
+
+def category_Baby(request,id):
+    if 'user_id' in request.session:
+        user = User.objects.get(id = request.session['user_id'])
+        if user and user.isAdmin=='0':
+            shop = Seller.objects.get(id=int(id))
+            products = Shop_product.objects.filter(shop_id = int(id),category ="Baby_Care")
+            context = {"shop":shop,"products":products}
+            return render(request,'shop_product_grid.html', context)
+        else:
+            return redirect('/account/logout/')
+    else:
+        return redirect('/account/login/')
+
+def category_Men(request,id):
+    if 'user_id' in request.session:
+        user = User.objects.get(id = request.session['user_id'])
+        if user and user.isAdmin=='0':
+            shop = Seller.objects.get(id=int(id))
+            products = Shop_product.objects.filter(shop_id = int(id),category ="Men_Products")
+            context = {"shop":shop,"products":products}
+            return render(request,'shop_product_grid.html', context)
+        else:
+            return redirect('/account/logout/')
+    else:
+        return redirect('/account/login/')
+
+def category_Woman(request,id):
+    if 'user_id' in request.session:
+        user = User.objects.get(id = request.session['user_id'])
+        if user and user.isAdmin=='0':
+            shop = Seller.objects.get(id=int(id))
+            products = Shop_product.objects.filter(shop_id = int(id),category ="Women_Product")
+            context = {"shop":shop,"products":products}
+            return render(request,'shop_product_grid.html', context)
+        else:
+            return redirect('/account/logout/')
+    else:
+        return redirect('/account/login/')
+
+def category_Kid(request,id):
+    if 'user_id' in request.session:
+        user = User.objects.get(id = request.session['user_id'])
+        if user and user.isAdmin=='0':
+            shop = Seller.objects.get(id=int(id))
+            products = Shop_product.objects.filter(shop_id = int(id),category ="Kid_Product")
+            context = {"shop":shop,"products":products}
+            return render(request,'shop_product_grid.html', context)
+        else:
+            return redirect('/account/logout/')
+    else:
+        return redirect('/account/login/')
