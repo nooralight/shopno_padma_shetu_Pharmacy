@@ -17,5 +17,6 @@ urlpatterns=[
     path('product/category/Men/<int:id>',views.category_Men, name= 'shop-category-men'),
     path('product/category/Woman/<int:id>',views.category_Woman, name= 'shop-category-women'),
     path('product/category/Kid/<int:id>',views.category_Kid, name= 'shop-category-kid'),
+    path('search_product_shop/<int:id>',views.search_product,name = 'search-shop-product'),
 
 ]

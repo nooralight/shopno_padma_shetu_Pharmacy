@@ -156,3 +156,11 @@ def category_Kid(request,id):
             return redirect('/account/logout/')
     else:
         return redirect('/account/login/')
+
+def search_product(request,id):
+    search = request.POST.get("search")
+    print(search)
+    shop = Seller.objects.get(id = int(id))
+    products = Shop_product.objects.filter(shop_id = int(id),name =str(search))
+    context = {"shop":shop,"products":products}
+    return render(request,'shop_product_grid.html', context)
