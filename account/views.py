@@ -12,11 +12,18 @@ def gotoRegistration_Company(request):
     return render(request, 'company_registration.html')
 
 def gotoLogin(request):
-    return render(request, 'login.html')
+    if 'user_id' in request.session:
+        request.session.flush()
+        return render(request, 'login.html')
+    else:
+        return render(request, 'login.html')
 
 def gotoSellerLogin(request):
-    return render(request,"seller_login.html")
-
+    if 'user_id' in request.session:
+        request.session.flush()
+        return render(request, 'seller_login.html')
+    else:
+        return render(request, 'seller_login.html')
 def registerUser(request):
     f_name = request.POST.get("f_name")
     l_name = request.POST.get("l_name")

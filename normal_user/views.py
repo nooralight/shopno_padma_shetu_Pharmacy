@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from account.models import User,Seller
 from seller.models import Shop_product
 from cart.models import Cart
@@ -6,7 +7,14 @@ from .models import OrderHistory_customer
 
 # Create your views here.
 def gotoHome(request):
-    return render(request, 'index.html')
+    if 'user_id' in request.session:
+        user = User.objects.get(id = request.session['user_id'])
+        if user and user.isAdmin=='0':
+            return render(request, 'index.html')
+        else:
+            return redirect('/account/logout/')
+    else:
+        return render(request, 'index.html')
 
 def gotoVendors(request):
     shops= Seller.objects.all()
@@ -32,9 +40,16 @@ def gotoAbout(request):
     return render(request,'about.html')
 
 def gotoProductDetails(request,id):
-    product = Shop_product.objects.get(id=int(id))
-    context={"product":product}
-    return render(request,'product_details.html', context)
+    if 'user_id' in request.session:
+        user = User.objects.get(id = request.session['user_id'])
+        if user and user.isAdmin=='0':
+            product = Shop_product.objects.get(id=int(id))
+            context={"product":product}
+            return render(request,'product_details.html', context)
+        else:
+            return redirect('/account/logout/')
+    else:
+        return redirect('/account/login/')
 
 
 

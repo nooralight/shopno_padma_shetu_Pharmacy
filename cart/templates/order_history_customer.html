@@ -62,6 +62,9 @@
                               <div class="py-2 text-uppercase">Quantity</div>
                             </th>
                             <th scope="col" class="border-0 bg-light">
+                              <div class="py-2 text-uppercase">Destination</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
                                 <div class="py-2 text-uppercase">Order Confirmed</div>
                               </th>
                           </tr>
@@ -80,6 +83,7 @@
                             <td class="border-0 align-middle"><strong>{{ order.product_name }}&#2547</strong></td>
                             <td class="border-0 align-middle"><strong>{{ order.total }}</strong></td>
                             <td class="border-0 align-middle"><strong>{{ order.quantity }}</strong></td>
+                            <td class="border-0 align-middle"><strong>{{ order.d_address }}</strong></td>
                             {% if order.verified == 'Yes' %}
                             <td class="border-0 align-middle bg-success"><strong>{{ order.verified }}</strong></td>
                             {% else %}
