@@ -22,7 +22,7 @@ def gotoCartPage(request):
             for cart in carts:
                 product_id = cart.product_id
                 product = Shop_product.objects.get(id=product_id)
-                if product.category=="Prescription Medicines":
+                if product.category=="Prescription_Medicines":
                     prescr_needed= True
                     break
 
@@ -49,10 +49,12 @@ def addingCart(request,id):
                     quantity = request.POST.get("purchase_quantity_strip")
                     b_quantity = str(quantity)+" strip"
                     total_price = int(product.price)*(int(quantity)*10)
-                else:
+                elif request.POST.get("purchase_quantity_box") and int(request.POST.get("purchase_quantity_box"))>0:
                     quantity = request.POST.get("purchase_quantity_box")
                     b_quantity = str(quantity)+" box"
                     total_price = int(product.price)*(int(quantity)*100)
+                else:
+                    return redirect("/")
             else:
                 quantity = request.POST.get("purchase_quantity_pc")
                 b_quantity = str(quantity)+" pc"
@@ -67,47 +69,44 @@ def addingCart(request,id):
     else:
         return redirect('/account/login/')
 
-def confirmingCart(request):
-    if 'user_id' in request.session:
-        user = User.objects.get(id = request.session['user_id'])
-        if user and user.isAdmin=='0':   
-            carts = Cart.objects.filter(customer_id =request.session['user_id'],active = "Yes")
-            prescr_needed= False
-            current_dateTime = datetime.now()
-            finished = True
-            for cart in carts:
-                product_id = cart.product_id
-                product = Shop_product.objects.get(id=product_id)
-                if product.category=="Prescription Medicines":
-                    # cart_up = Cart.objects.filter(id = cart.id)
-                    # cart_up.update(active="No")
-                    prescr_needed= True
-                    break
-            if prescr_needed==True:
-                presc = request.FILES['myfile']
-                d_address = request.POST.get("d_address")
-                fs = FileSystemStorage()
-                name_f = str(request.session['user_id'])+"_"+product.name+presc.name[-4:]
-                filename = fs.save(name_f, presc)
-                uploaded_file_url = fs.url(filename)
-                carts.update(prescription = uploaded_file_url)
-                for cart in carts:
-                    order_history = OrderHistory_customer.objects.create(purchase_date = current_dateTime,d_address= d_address,quantity = cart.quantity,product_name = cart.product_name,cart_id=cart.id,shop_id = cart.shop_id,customer_id=request.session['user_id'],total=cart.total_price,verified='No')
-                    order_history.save()
-                carts.update(active="No")
-            else:
-                d_address = request.POST.get("d_address")
-                carts.update(active ="No")
-                for cart in carts:
-                    order_history = OrderHistory_customer.objects.create(purchase_date = current_dateTime,d_address= d_address,quantity = cart.quantity,product_name = cart.product_name,cart_id=cart.id,shop_id = cart.shop_id,customer_id=request.session['user_id'],total=cart.total_price,verified='Yes')
-                    order_history.save()
-                    
-            
-            return redirect("/")
-        else:
-            return redirect('/account/logout/')
+def confirmingCart(request):   
+    carts = Cart.objects.filter(customer_id =request.session['user_id'],active = "Yes")
+    print("carts = ",carts)
+    prescr_needed= False
+    current_dateTime = datetime.now()
+    finished = True
+    for cart in carts:
+        product_id = cart.product_id
+        product = Shop_product.objects.get(id=product_id)
+        if product.category=="Prescription_Medicines":
+            # cart_up = Cart.objects.filter(id = cart.id)
+            # cart_up.update(active="No")
+            prescr_needed= True
+            break
+    if prescr_needed==True:
+        presc = request.FILES['myfile']
+        address = request.POST.get("d_address")
+        fs = FileSystemStorage()
+        name_f = str(request.session['user_id'])+"_"+product.name+presc.name[-4:]
+        filename = fs.save(name_f, presc)
+        uploaded_file_url = fs.url(filename)
+        carts.update(prescription = uploaded_file_url)
+        for cart in carts:
+            order_history = OrderHistory_customer.objects.create(purchase_date = current_dateTime,address= address,quantity = cart.quantity,product_name = cart.product_name,cart_id=cart.id,shop_id = cart.shop_id,customer_id=request.session['user_id'],total=cart.total_price,verified='No')
+            order_history.save()
+        carts.update(active="No")
     else:
-        return redirect('/account/login/')
+        address = request.POST.get("d_address")
+        #print("Address = ",d_address)
+        
+        for cart in carts:
+            print(cart)
+            order_history = OrderHistory_customer.objects.create(purchase_date = current_dateTime,address=address,quantity = cart.quantity,product_name = cart.product_name,cart_id=cart.id,shop_id = cart.shop_id,customer_id=request.session['user_id'],total=cart.total_price,verified='Yes')
+            order_history.save()
+        print("Done...................")
+        carts.update(active ="No")
+
+    return redirect("/")
 
 def deleteCartItem(request, id):
     if 'user_id' in request.session:

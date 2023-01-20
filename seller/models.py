@@ -10,6 +10,7 @@ class Shop_product(models.Model):
     quantity = models.TextField(max_length=255)
     price = models.TextField(max_length=255)
     shop_id = models.BigIntegerField()
+    shop_name = models.TextField(max_length=255)
     ##TODO
     generic_name = models.TextField(max_length=255,null=True,blank=True) #Naproxen Sodium 500mg
     ##TODO

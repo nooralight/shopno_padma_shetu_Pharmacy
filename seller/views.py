@@ -55,7 +55,7 @@ def upload(request):
                     name_photo = str(shop.id)+"_"+name+upload.name[-4:]
                     file = fss.save(name_photo, upload)
                     file_url = fss.url(file)
-                    product = Shop_product.objects.create(name = name, brand_name = brand_name,quantity=quantity, price = price, category= category, product_photo = file_url,shop_id=shop.id,sub_category=sub_category)
+                    product = Shop_product.objects.create(name = name, brand_name = brand_name,quantity=quantity, price = price, category= category, product_photo = file_url,shop_id=shop.id,shop_name = shop.shop_name,sub_category=sub_category)
                     product.save()
                     return redirect('/seller/')
             else:

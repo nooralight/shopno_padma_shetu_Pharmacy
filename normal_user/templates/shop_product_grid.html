@@ -109,18 +109,16 @@
 					<div class="col col-lg-6 col-md-6 col-sm-12">
 						<form action="{% url 'search-shop-product' shop.id %}" method="POST">
                             {% csrf_token %}
-							<div class="advance_serach">
-								
-								<div class="form_item">
-									<input type="text"  name="search" placeholder="Search Prudcts...">
-									<button type="submit" class="search_btn"><i class="far fa-search"></i></button>
-								</div>
-							</div>
+                            <div class="input-group">
+                                <input type="text" class="form-control rounded" name="search" placeholder="Search Pruducts in this Shop" aria-label="Search" aria-describedby="search-addon" />
+                                <button type="submit" class="btn btn-outline-primary bg-dark">search</button>
+                              </div>
 						</form>
 					</div>
 
 					<div class="col col-lg-3 col-md-3 col-sm-12">
-						<button class="mobile_menu_btn2 navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_menu_dropdown" aria-controls="main_menu_dropdown" aria-expanded="false" aria-label="Toggle navigation">
+						<button class="mobile_m
+                        enu_btn2 navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_menu_dropdown" aria-controls="main_menu_dropdown" aria-expanded="false" aria-label="Toggle navigation">
 							<i class="fal fa-bars"></i>
 						</button>
 						<button type="button" class="cart_btn">
@@ -161,8 +159,12 @@
                                         <li><a class="nav-link" href="{% url 'gotoVendor' %}">Shops</a></li>
                                         <li><a class="nav-link" href="{% url 'gotoDoctors' %}">Online Doctors</a></li>
                                         <li><a class="nav-link" href="{% url 'gotoContact' %}">Contact Us</a></li>
+                                        {% if logged %}
                                         <li><a class="nav-link" href="{% url 'goto-cart' %}">My Cart</a></li>
                                         <li><a class="nav-link" href="{% url 'goto-Orders' %}">My Orders</a></li>
+                                        {% else %}
+                                        <li><a class="nav-link" href="{% url 'login-user' %}">Login</a></li>
+                                        {% endif %}
                                     </ul>
                                 </div>
                             </nav>
@@ -180,11 +182,13 @@
                                    <svg role="img" xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24" stroke="#051d43" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#2329D6"> <title id="personIconTitle">Person</title> <path d="M4,20 C4,17 8,17 10,15 C11,14 8,14 8,9 C8,5.667 9.333,4 12,4 C14.667,4 16,5.667 16,9 C16,14 13,14 14,15 C16,17 20,17 20,20"/> </svg>
                                </a> -->
                                <div class="select_option mb-0 clearfix">
+                                {% if logged %}
                                 <ul>
                                     <li><a class="custom-card" href="#">Profile</a></li>
                                     <li><a class="custom-card" href="{% url 'goto-cart' %}">My Cart</a></li>
                                     <li><a class="custom-card" href="{% url 'logout' %}">Signout</a></li>
                                 </ul>
+                                {% endif %}
                                </div>
                            </li>
                        </ul>
@@ -202,7 +206,7 @@
 
             <!-- sidebar cart - start
             ================================================== -->
-            <div class="sidebar-menu-wrapper">
+            <!-- <div class="sidebar-menu-wrapper">
                 <div class="cart_sidebar">
                     <button type="button" class="close_btn"><i class="fal fa-times"></i></button>
                     <ul class="cart_items_list ul_li_block mb_30 clearfix">
@@ -262,13 +266,13 @@
                     </ul>
                 </div>
                 <div class="cart_overlay"></div>
-            </div>
+            </div> -->
             <!-- sidebar cart - end
             ================================================== -->
 
             <!-- product quick view modal - start
             ================================================== -->
-            <div class="modal fade" id="quickview_popup" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+            <!-- <div class="modal fade" id="quickview_popup" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -361,7 +365,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- product quick view modal - end
             ================================================== -->
 
@@ -422,7 +426,7 @@
                                     </ul>
                                 </div>
 
-                                <div class="sb_widget">
+                                <!-- <div class="sb_widget">
                                     
                                     <div class="filter_sidebar">
                                         <div class="fs_widget">
@@ -446,42 +450,37 @@
 
                                         
                                     </div>
-                                </div>
+                                </div> -->
                             </aside>
                         </div>
 
                         <div class="col-lg-9">
                             <div class="filter_topbar">
                                 <div class="row align-items-center">
-                                    <div class="col col-md-4">
-                                        <ul class="layout_btns nav" role="tablist">
-                                            <li>
-                                                <button class="active" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><i class="fal fa-bars"></i></button>
-                                            </li>
-                                            <li>
-                                                <button data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
-                                                    <i class="fal fa-th-large"></i>
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    
 
                                     <div class="col col-md-4">
-                                        <form action="#">
-                                            <div class="select_option clearfix">
-                                                <select>
-                                                    <option data-display="Defaul Sorting">Select Your Option</option>
-                                                    <option value="1">Sorting By Name</option>
-                                                    <option value="2">Sorting By Price</option>
-                                                    <option value="3">Sorting By Size</option>
-                                                </select>
+                                        <form action="{% url 'sorting' shop.id %}" method="post">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <select class="form-select" name="sorting" aria-label="Default select example">
+                                                        <option disabled>Open this select menu</option>
+                                                        <option value="byName">Sort By Name</option>
+                                                        <option value="byPrice">Sort By Price</option>
+                                                        
+                                                      </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button type="submit" class="btn btn-outline-primary bg-dark">Filter</button>
+                                                </div>
                                             </div>
+                                            
+                                              
                                         </form>
                                     </div>
 
-                                    <div class="col col-md-4">
-                                        <div class="result_text">Showing 1-12 of 30 relults</div>
-                                    </div>
+                                    
                                 </div>
                             </div>
 
@@ -1923,7 +1922,7 @@
 
             <!-- newsletter_section - start
             ================================================== -->
-            <section class="newsletter_section">
+            <!-- <section class="newsletter_section">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col col-lg-6">
@@ -1940,7 +1939,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> -->
             <!-- newsletter_section - end
             ================================================== -->
 
@@ -1954,45 +1953,25 @@
             <div class="footer_widget_area">
                 <div class="container">
                     <div class="row">
-                        <div class="col col-lg-4 col-md-6 col-sm-6">
-                            <div class="footer_widget footer_about">
-                                <div class="brand_logo">
-                                    <a class="brand_link" href="index.html">
-                                        <img src="assets/images/logo/logo_1x.png" srcset="assets/images/logo/logo_2x.png 2x" alt="logo_not_found">
-                                    </a>
-                                </div>
-                                <ul class="social_round ul_li">
-                                    <li><a href="#!"><i class="icofont-youtube-play"></i></a></li>
-                                    <li><a href="#!"><i class="icofont-instagram"></i></a></li>
-                                    <li><a href="#!"><i class="icofont-twitter"></i></a></li>
-                                    <li><a href="#!"><i class="icofont-facebook"></i></a></li>
-                                    <li><a href="#!"><i class="icofont-linkedin"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
                         
-                        <div class="col col-lg-2 col-md-3 col-sm-6">
+                        
+                        <div class="col col-lg-4 col-md-3 col-sm-6">
                             <div class="footer_widget footer_useful_links">
                                 <h3 class="footer_widget_title text-uppercase">Quick Links</h3>
                                 <ul class="ul_li_block">
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="contact.html">Contact Us</a></li>
-                                    <li><a href="shop.html">Products</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Sign Up</a></li>
+                                    <li><a href="{% url 'gotoContact' %}">Contact Us</a></li>
+                                    <li><a href="{% url 'gotoProducts' %}">Products</a></li>
                                 </ul>
                             </div>
                         </div>
                         
-                        <div class="col col-lg-2 col-md-3 col-sm-6">
+                        <div class="col col-lg-4 col-md-3 col-sm-6">
                             <div class="footer_widget footer_useful_links">
                                 <h3 class="footer_widget_title text-uppercase">Custom area</h3>
                                 <ul class="ul_li_block">
                                     <li><a href="#!">My Account</a></li>
-                                    <li><a href="#!">Orders</a></li>
-                                    <li><a href="#!">Team</a></li>
-                                    <li><a href="#!">Privacy Policy</a></li>
-                                    <li><a href="#!">My Cart</a></li>
+                                    <li><a href="{% url 'goto-Orders' %}">My Orders</a></li>
+                                    <li><a href="{% url 'goto-cart' %}">My Cart</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -2013,13 +1992,11 @@
                                             <span class="hotline_number">+ 123 456 7890</span>
                                         </div>
                                     </div>
-                                    <div class="livechat_btn clearfix">
-                                        <a class="btn border_primary" href="#!">Live Chat</a>
-                                    </div>
+                                    
                                 </div>
                                 <ul class="store_btns_group ul_li">
-                                    <li><a href="#!"><img src="assets/images/app_store.png" alt="app_store"></a></li>
-                                    <li><a href="#!"><img src="assets/images/play_store.png" alt="play_store"></a></li>
+                                    <li><a href="#!"><img src="{% static 'normal_user/images/app_store.png' %}" alt="app_store"></a></li>
+                                    <li><a href="#!"><img src="{% static 'normal_user/images/play_store.png' %}" alt="play_store"></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -2027,24 +2004,7 @@
                 </div>
             </div>
             
-            <div class="footer_bottom">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col col-md-6">
-                            <p class="copyright_text">
-                                ©2021 <a href="#!">stowaa</a>. All Rights Reserved.
-                            </p>
-                        </div>
-                        
-                        <div class="col col-md-6">
-                            <div class="payment_method">
-                                <h4>Payment:</h4>
-                                <img src="assets/images/payments_icon.png" alt="image_not_found">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </footer>
         <!-- footer_section - end
         ================================================== -->
