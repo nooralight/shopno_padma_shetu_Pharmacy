@@ -40,10 +40,20 @@ def upload(request):
             quantity = request.POST.get("quantity")
             category = request.POST.get("category")
             sub_category = request.POST.get("sub_category")
+            contradiction= request.POST.get("contradiction")
+            pharmacology= request.POST.get("pharmacology")
+            interaction= request.POST.get("interaction")
+            side_effects= request.POST.get("side_effects")
+            pregnancy= request.POST.get("pregnancy")
+            warnings= request.POST.get("warnings")
+            therapeutic= request.POST.get("therapeutic")
+            storage_condition = request.POST.get("storage_condition")
             name_photo = str(shop.id)+"_"+name+upload.name[-4:]
             file = fss.save(name_photo, upload)
             file_url = fss.url(file)
-            product = Shop_product.objects.create(name = name, brand_name = brand_name,quantity=quantity,generic_name= generic_name, price = price, category= category, product_photo = file_url,shop_id=shop.id,shop_name = shop.shop_name,sub_category=sub_category)
+            product = Shop_product.objects.create(name = name, brand_name = brand_name,quantity=quantity,generic_name= generic_name, price = price, category= category, product_photo = file_url,shop_id=shop.id,shop_name = shop.shop_name,sub_category=sub_category,
+            contradiction=contradiction,pharmacology=pharmacology,interaction=interaction,side_effects=side_effects,pregnancy=pregnancy,warnings=warnings,
+            therapeutic=therapeutic,storage_condition=storage_condition)
             product.save()
             return redirect('/seller/')
     else:

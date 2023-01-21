@@ -29,10 +29,21 @@ def upload(request):
             price = request.POST.get("price")
             category = request.POST.get("category")
             sub_category = request.POST.get("sub_category")
+            generic_name = request.POST.get("generic_name")
+            contradiction= request.POST.get("contradiction")
+            pharmacology= request.POST.get("pharmacology")
+            interaction= request.POST.get("interaction")
+            side_effects= request.POST.get("side_effects")
+            pregnancy= request.POST.get("pregnancy")
+            warnings= request.POST.get("warnings")
+            therapeutic= request.POST.get("therapeutic")
+            storage_condition = request.POST.get("storage_condition") 
             name_photo = str(company.id)+"_company_product_"+name+upload.name[-4:]
             file = fss.save(name_photo, upload)
             file_url = fss.url(file)
-            product = Company_product.objects.create(name = name, price = price, category= category, product_photo = file_url,company_id=company.id,company_name = company.com_name,sub_category=sub_category)
+            product = Company_product.objects.create(name = name, price = price, category= category, product_photo = file_url,company_id=company.id,company_name = company.com_name,sub_category=sub_category,
+            generic_name=generic_name,contradiction=contradiction,pharmacology=pharmacology,interaction=interaction,side_effects=side_effects,pregnancy=pregnancy,warnings=warnings,
+            therapeutic=therapeutic,storage_condition=storage_condition)
             product.save()
             return redirect('/company/')
     else:
