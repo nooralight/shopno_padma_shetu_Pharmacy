@@ -27,10 +27,10 @@
             <nav class="nav">
                 <div> <i class='bx bx-layer nav_logo-icon nav_logo'></i>
                     <div class="nav_list">
-                        <a href="{% url 'seller-dashboard' %}" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Seller Dashboard</span> </a>
-                        <a href="{% url 'add-product' %}" class="nav_link"> <i class='bx bxs-folder-plus'></i> <span class="nav_name">Add Product</span> </a> 
-                        <a href="{% url 'list-product' %}" class="nav_link"> <i class='bx bx-list-ul'></i> <span class="nav_name">Product List</span> </a>
-                        <a href="{% url 'edit-shop' %}" class="nav_link"> <i class='bx bxs-edit'></i> <span class="nav_name">Edit Shop</span> </a>
+                        <a href="{% url 'company-dashboard' %}" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Company Dashboard</span> </a>
+                        <a href="{% url 'add-product-company' %}" class="nav_link"> <i class='bx bxs-folder-plus'></i> <span class="nav_name">Add Product</span> </a> 
+                        <a href="{% url 'list-product-company' %}" class="nav_link"> <i class='bx bx-list-ul'></i> <span class="nav_name">Product List</span> </a>
+                        <a href="{% url 'edit-company' %}" class="nav_link"> <i class='bx bxs-edit'></i> <span class="nav_name">Edit Shop</span> </a>
                     </div>
                 </div> <a href="{% url 'logout' %}" class="nav_link active"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
             </nav>
@@ -40,11 +40,11 @@
             
             <div class="row">
                 <div class="col-md-4">
-                    <h4>Seller Dashboard</h4>
+                    <h4>Company Dashboard</h4>
                 </div>
                 <div class="col-md-4 text-center" style="background-color: #4723D9;color: aliceblue;">
                     <div class=p-2>
-                        <h4>Shop Name: {{ shop_name }}</h4>
+                        <h4>Company Name: {{ com_name }}</h4>
                     </div>
                     
                 </div>
@@ -56,8 +56,8 @@
                         
                         <div class="card-body">
                             <h5 class="card-title">Add New Item</h5>
-                            <p class="card-text">You can add items and publish in your shop from here</p>
-                            <a href="{% url 'add-product' %}" class="btn btn-primary">Add Item</a>
+                            <p class="card-text">You can add items and publish in your company from here</p>
+                            <a href="{% url 'add-product-company' %}" class="btn btn-primary">Add Item</a>
                         </div>
                         
                     </div>
@@ -66,10 +66,10 @@
                     <div class="card text-center" style="background-color: #4723D9;color: white;">
                         
                         <div class="card-body">
-                            <h5 class="card-title">Edit your Shop</h5>
-                            <p class="card-text">You can edit your shop details, add address, even profile pictures!</p>
-                            <a href="{% url 'edit-shop' %}" class="btn btn-primary">Edit Shop</a>
-                            <a href="{% url 'edit-profile-pic' %}" class="btn btn-primary">Change Profile Picture</a>
+                            <h5 class="card-title">Edit Company Details</h5>
+                            <p class="card-text">You can edit Company details, add address</p>
+                            <a href="{% url 'edit-company' %}" class="btn btn-primary">Edit Company</a>
+                            
                         </div>
                         
                     </div>
@@ -77,49 +77,17 @@
                 
                 <div class="col-md-12 pt-5">
                     <div class="row">
-                        <div class=col-md-6>
-                            <a href="{% url 'gotoCompanies' %}" class="custom-card">
+                        <div class=col-md-12>
+                            <a href="{% url 'order-lists-sellers' %}" class="custom-card">
                                 <div class="d-flex justify-content-end">
-                                    <div class="d-grid gap-2 col-6">
-                                        <button class="btn btn-primary btn-lg" style="background-color: #4723D9;color: white;" type="button">Order From Company</button>
-                                      </div>
-                                </div>  
-                            </a>
-                                                   
-                        </div>
-                        <div class=col-md-6>
-                            <a href="{% url 'checkOrdercompany' %}" class="custom-card">
-                                <div class="d-flex justify-content-start">
-                                    <div class="d-grid gap-2 col-6">
-                                        <button class="btn btn-primary btn-lg" style="background-color: #4723D9;color: white;" type="button">Check Purchase History</button>
+                                    <div class="d-grid gap-2 col-12">
+                                        <button class="btn btn-primary btn-lg" style="background-color: #4723D9;color: white;" type="button">Order Lists</button>
                                       </div>
                                 </div> 
                             </a>
-                              
+                                                    
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-12 pt-5">
-                    <div class="row">
-                        <div class=col-md-6>
-                            <a href="{% url 'list-product' %}" class="custom-card"> 
-                                <div class="d-flex justify-content-end">                               
-                                    <div class="d-grid gap-2 col-6">                                                                  
-                                        <button class="btn btn-primary btn-lg" style="background-color: #4723D9;color: white;" type="button">Check Product List</button>                                 
-                                    </div>   
-                                </div> 
-                            </a>                        
-                        </div>
-                        <div class=col-md-6>
-                            <a href="{% url 'order-list-seller' %}" class="custom-card">
-                                <div class="d-flex justify-content-start">
-                                    <div class="d-grid gap-2 col-6">
-                                        <button class="btn btn-primary btn-lg" style="background-color: #4723D9;color: white;" type="button">Check Order History</button>
-                                      </div>
-                                </div>
-                            </a>
-                              
-                        </div>
+                        
                     </div>
                 </div>
                 

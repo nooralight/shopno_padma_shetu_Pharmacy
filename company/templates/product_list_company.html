@@ -22,10 +22,10 @@
             <nav class="nav">
                 <div> <i class='bx bx-layer nav_logo-icon nav_logo'></i>
                     <div class="nav_list">
-                        <a href="{% url 'seller-dashboard' %}" class="nav_link"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Seller Dashboard</span> </a>
-                        <a href="{% url 'add-product' %}" class="nav_link"> <i class='bx bxs-folder-plus'></i> <span class="nav_name">Add Product</span> </a> 
-                        <a href="{% url 'list-product' %}" class="nav_link active"> <i class='bx bx-list-ul'></i> <span class="nav_name">Product List</span> </a>
-                        <a href="{% url 'edit-shop' %}" class="nav_link"> <i class='bx bxs-edit'></i> <span class="nav_name">Edit Shop</span> </a>
+                        <a href="{% url 'company-dashboard' %}" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Company Dashboard</span> </a>
+                        <a href="{% url 'add-product-company' %}" class="nav_link"> <i class='bx bxs-folder-plus'></i> <span class="nav_name">Add Product</span> </a> 
+                        <a href="{% url 'list-product-company' %}" class="nav_link"> <i class='bx bx-list-ul'></i> <span class="nav_name">Product List</span> </a>
+                        <a href="{% url 'edit-company' %}" class="nav_link"> <i class='bx bxs-edit'></i> <span class="nav_name">Edit Shop</span> </a>
                     </div>
                 </div> <a href="{% url 'logout' %}" class="nav_link active"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
             </nav>
@@ -35,83 +35,75 @@
             
             <div class="row">
                 <div class="col-md-4">
-                    <h4>Seller Dashboard</h4>
-                    <h5>> Order History</h5>
+                    <h4>Company Dashboard</h4>
+                    <h5>> Product List</h5>
                 </div>
                 <div class="col-md-4 text-center" style="background-color: #4723D9;color: aliceblue;">
                     <div class=p-2>
-                        <h4>Shop Name: {{ shop_name }}</h4>
+                        <<h4>Company Name: {{ com_name }}</h4>
                     </div>
                     
                 </div>
                 <div class="col-md-4 text-end">
                     <h4>Online <i class='bx bxs-hourglass-top'></i></h4>
                 </div>
-                
-                
-                <div class="col-md-12 pt-4">
-                    <div class="card" style="background-color: #4723D9;color: white;">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                  <th scope="col">Purchase Date</th>
-                                  <th scope="col">Cart ID</th>                                 
-                                  <th scope="col">Customer ID</th>
-                                  <th scope="col">Quantity</th>
-                                  <th scope="col">Total</th>
-                                  <th scope="col">Destination</th>
-                                  <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for order in orders %}
-                                <tr class="table-light">
-                                    <th scope="row">{{ order.purchase_date }}</th>
-                                    <td>{{ order.cart_id }}</td>
-                                    <td>{{ order.customer_id }}</td>
-                                    <td>{{ order.quantity }}</td>
-                                    <td>{{ order.total }}&#2547</td>
-                                    <td>{{ order.d_address }}</td>
-                                    {% if order.verified == "No" %}
-                                    <form method="POST" action="{% url 'verify-order-seller' order.id %}">
-                                        {% csrf_token %}
-                                        <td class="d-flex justify-content-center"><button type="submit" class="btn btn-warning">Verify</button></td>
-                                    </form>
-                                    {% endif %}
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>                              
-                </div>
-                <div class="col-md-12 pt-4">
-                    <div class="card" style="background-color: #4723D9;color: white;">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                  
-                                  <th scope="col">Cart ID</th>                                 
-                                  <th scope="col">Customer ID</th>
-                                  <th scope="col">Product Name</th>
-                                  <th scope="col">Total</th>
-                                  <th scope="col">Prescription</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for cart in carts %}
-                                <tr class="table-light">
-                                    <th scope="row">{{ cart.id }}</th>
-                                    <td>{{ cart.customer_id }}</td>
-                                    <td>{{ cart.product_name }}</td>
-                                    <td>{{ cart.total_price }}&#2547</td>
-                                    <td>{{ cart.prescription }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                <div class="col-md-6 pt-4">
+                    <div class="card text-center" style="background-color: #4723D9;color: white;">
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">Add New Item</h5>
+                            <p class="card-text">You can add items and publish in your shop from here</p>
+                            <a href="{% url 'add-product' %}" class="btn btn-primary">Add Item</a>
+                        </div>
+                        
                     </div>
-                               
                 </div>
+                <div class="col-md-6 pt-4">
+                    <div class="card text-center" style="background-color: #4723D9;color: white;">
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">Edit your Shop</h5>
+                            <p class="card-text">You can edit your shop details, add address, even profile pictures!</p>
+                            <a href="{% url 'edit-shop' %}" class="btn btn-primary">Edit Shop</a>
+                            <a href="{% url 'edit-profile-pic' %}" class="btn btn-primary">Change Profile Picture</a>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="col-md-12 pt-4">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                              <th scope="col">ID</th>
+                              <th scope="col">Product Name</th>
+                              <th scope="col">Category</th>
+                              <th scope="col">Price</th>
+                              <th scope="col">Photo</th>
+                              <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr class="table-light">
+                                <th scope="row">{{ product.id }}</th>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.category }}</td>
+                                <td>{{ product.price }}</td>
+                                <td>{{ product.product_photo }}</td>
+                                <form method="POST" action="{% url 'delete-product-company' product.id %}">
+                                    {% csrf_token %}
+                                    <td class="d-flex justify-content-center"><button type="submit" class="btn btn-danger">Delete</button></td>
+                                </form>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                
+                
+            </div>
 
             
         </div>

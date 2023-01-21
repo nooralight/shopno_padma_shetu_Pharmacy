@@ -60,8 +60,9 @@ def registerCompany(request):
     tin_no = request.POST.get("tin_no")
     com_address = request.POST.get("com_address")
     password = request.POST.get("password")
+    com_reg_no = request.POST.get("com_reg_no")
     
-    company = Company.objects.create(com_name=com_name,admin_name =admin_name,com_email = com_email,com_phone = com_phone,tin_no=tin_no,com_address=com_address,password=password)
+    company = Company.objects.create(com_name=com_name,admin_name =admin_name,com_email = com_email,com_phone = com_phone,tin_no=tin_no,com_address=com_address,com_reg_no= com_reg_no,password=password)
     company.save()
     return redirect('gotoLogin')
 
@@ -103,7 +104,7 @@ def login_shop(request):
         if input_password == registered_shop.password:
             print("login success")
             #return redirect('createyourshop')
-            request.session['user_id'] = registered_shop.id           
+            request.session['seller_id'] = registered_shop.id           
             response = redirect('/seller/')               
             return response
         else:
@@ -120,12 +121,12 @@ def login_company(request):
     input_password = request.GET.get("password")
 
     try:
-        registered_company = Company.objects.get(email=input_email)
+        registered_company = Company.objects.get(com_email=input_email)
         
         if input_password == registered_company.password:
             print("login success")
             #return redirect('createyourshop')
-            request.session['user_id'] = registered_company.id           
+            request.session['company_id'] = registered_company.id           
             response = redirect('/company/')               
             return response
         else:

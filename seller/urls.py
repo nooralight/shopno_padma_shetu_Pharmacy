@@ -13,4 +13,10 @@ urlpatterns=[
     path('changing_pic',views.changePic, name="change-pic"),
     path('order_list/', views.gotoOrderList, name='order-list-seller'),
     path('confirm_order_seller/<str:id>/', views.verify_order, name='verify-order-seller'),
+    path('gotoCompanies/',views.gotoCompanies, name="gotoCompanies"),
+    path('company_products/<int:id>/',views.checkCompanyProducts, name="company-products"),
+    path('making_order/<str:company_id>/<int:id>/',views.making_order,name="making-order"),
+    path('order_history_from_company/',views.gotoOrderHistory_comp, name="checkOrdercompany"),
+    path('product_category_company/<int:id>/<str:category>/', views.product_category_company,name="product-category-company")
+    
 ]

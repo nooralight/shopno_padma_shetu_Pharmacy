@@ -14,12 +14,12 @@ def gotoHome(request):
         if user and user.isAdmin=='0':
             logged = True
             context = {"logged":logged,"products":products}
-            return render(request, 'index.html',context)
+            return render(request, 'index_normal.html',context)
         else:
             return redirect('/account/logout/')
     else:
         context = {"logged":logged,"products":products}
-        return render(request, 'index.html',context)
+        return render(request, 'index_normal.html',context)
 
 def gotoVendors(request):
     logged = False
@@ -208,8 +208,19 @@ def search_shop_product(request,id):
     search = request.POST.get("search")
     print(search)
     shop = Seller.objects.get(id = int(id))
-    products = Shop_product.objects.filter(shop_id = int(id),name =str(search))
-    context = {"shop":shop,"products":products}
+    products = Shop_product.objects.filter(shop_id = int(id))
+    names=[]
+    generics =[]
+    for product in products:
+        names.append(product.name)
+        generics.append(product.generic_name)
+    if search in names:
+        s_products = Shop_product.objects.filter(name = search)
+    elif search in generics:
+        s_products = Shop_product.objects.filter(generic_name = search)
+    else:
+        s_products = None
+    context = {"shop":shop,"products":s_products}
     return render(request,'shop_product_grid.html', context)
 
 def search_shop(request):
@@ -246,8 +257,19 @@ def sorting_products(request):
 def search_product(request):
     search = request.POST.get("search")
     print(search)
-    products = Shop_product.objects.filter(name= search)
-    context = {"products":products}
+    products = Shop_product.objects.all()
+    names=[]
+    generics =[]
+    for product in products:
+        names.append(product.name)
+        generics.append(product.generic_name)
+    if search in names:
+        s_products = Shop_product.objects.filter(name = search)
+    elif search in generics:
+        s_products = Shop_product.objects.filter(generic_name = search)
+    else:
+        s_products = None
+    context = {"products":s_products}
     return render(request,'products.html', context)
 
 def product_category_OTC(request):

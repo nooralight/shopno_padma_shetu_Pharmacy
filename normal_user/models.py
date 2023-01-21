@@ -12,3 +12,5 @@ class OrderHistory_customer(models.Model):
     customer_id = models.BigIntegerField()
     total = models.TextField(max_length=255)
     verified = models.CharField(max_length=3,default="Yes")
+    delivered = models.TextField(default="No")
+    delivered_dt = models.DateTimeField(blank=True, null=True)

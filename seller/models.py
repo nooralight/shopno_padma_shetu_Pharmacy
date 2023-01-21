@@ -27,6 +27,4 @@ class Shop_product(models.Model):
     def __str__(self):
         return self.name
 
-class OrderHistory_seller(models.Model):
-    customer_id = models.BigIntegerField()
-    cart_id = models.BigIntegerField()
+

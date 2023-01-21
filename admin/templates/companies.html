@@ -111,27 +111,29 @@
                         <thead>
                             <tr>
                               <th scope="col">ID</th>
-                              <th scope="col">First Name</th>
-                              <th scope="col">Last Name</th>
-                              <th scope="col">Shop Name</th>
-                              <th scope="col">Address</th>
-                              <th scope="col">Email</th>
+                              <th scope="col">Company Name</th>
+                              <th scope="col">Admin Name</th>
+                              <th scope="col">Company Address</th>
+                              <th scope="col">Company Email</th>
                               <th scope="col">Phone</th>
+                              <th scope="col">Tin No</th>
+                              <th scope="col">Company Registration No</th>
                               <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for seller in sellers %}
+                            {% for company in companies %}
                             <tr class="table-light">
                                 <th scope="row">{{ seller.id }}</th>
-                                <td>{{ seller.first_name }}</td>
-                                <td>{{ seller.last_name }}</td>
-                                <td>{{ seller.shop_name }}</td>
-                                <td>{{ seller.address }}</td>
-                                <td>{{ seller.email }}</td>
-                                <td>{{ seller.phone }}</td>
+                                <td>{{ company.com_name }}</td>
+                                <td>{{ company.admin_name }}</td>
+                                <td>{{ company.com_address }}</td>
+                                <td>{{ company.com_email }}</td>
+                                <td>{{ company.com_phone }}</td>
+                                <td>{{ company.tin_no }}</td>
+                                <td>{{ company.com_reg_no }}</td>
                                 
-                                <form method="POST" action="{% url 'delete-seller' seller.id %}" id="delete~seller">
+                                <form method="POST" action="{% url 'delete-company' company.id %}" id="delete~company">
                                     {% csrf_token %}
                                     <td class="d-flex justify-content-center"><button type="submit" class="btn btn-danger">Delete</button></td>
                                 </form>

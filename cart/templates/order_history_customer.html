@@ -50,7 +50,7 @@
                         <thead>
                           <tr>
                             <th scope="col" class="border-0 bg-light">
-                              <div class="p-2 px-3 text-uppercase">Purchase Date</div>
+                              <div class="p-2 px-3 text-uppercase">Purchase DateTime</div>
                             </th>
                             <th scope="col" class="border-0 bg-light">
                                 <div class="py-2 text-uppercase">Product Name</div>
@@ -67,6 +67,14 @@
                             <th scope="col" class="border-0 bg-light">
                                 <div class="py-2 text-uppercase">Order Confirmed</div>
                               </th>
+                            <th scope="col" class="border-0 bg-light">
+                              <div class="py-2 text-uppercase">Delivered?</div>
+                            </th>
+                            {% if order.delivered == "Yes" %}
+                            <th scope="col" class="border-0 bg-light">
+                              <div class="py-2 text-uppercase">Delivered DateTime</div>
+                            </th>
+                            {% endif %}
                           </tr>
                         </thead>
                         <tbody>
@@ -88,6 +96,10 @@
                             <td class="border-0 align-middle bg-success"><strong>{{ order.verified }}</strong></td>
                             {% else %}
                             <td class="border-0 align-middle bg-warning"><strong>{{ order.verified }}</strong></td>
+                            {% endif %}
+                            <td class="border-0 align-middle"><strong>{{ order.delivered }}</strong></td>
+                            {% if order.delivered == "Yes" %}
+                            <td class="border-0 align-middle"><strong>{{ order.delivered_dt }}</strong></td>
                             {% endif %}
                             <!-- <td class="border-0 align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a></td> -->
                           </tr>

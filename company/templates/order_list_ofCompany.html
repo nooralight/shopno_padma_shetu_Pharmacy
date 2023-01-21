@@ -22,10 +22,10 @@
             <nav class="nav">
                 <div> <i class='bx bx-layer nav_logo-icon nav_logo'></i>
                     <div class="nav_list">
-                        <a href="{% url 'seller-dashboard' %}" class="nav_link"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Seller Dashboard</span> </a>
-                        <a href="{% url 'add-product' %}" class="nav_link"> <i class='bx bxs-folder-plus'></i> <span class="nav_name">Add Product</span> </a> 
-                        <a href="{% url 'list-product' %}" class="nav_link active"> <i class='bx bx-list-ul'></i> <span class="nav_name">Product List</span> </a>
-                        <a href="{% url 'edit-shop' %}" class="nav_link"> <i class='bx bxs-edit'></i> <span class="nav_name">Edit Shop</span> </a>
+                        <a href="{% url 'company-dashboard' %}" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Company Dashboard</span> </a>
+                        <a href="{% url 'add-product-company' %}" class="nav_link"> <i class='bx bxs-folder-plus'></i> <span class="nav_name">Add Product</span> </a> 
+                        <a href="{% url 'list-product-company' %}" class="nav_link"> <i class='bx bx-list-ul'></i> <span class="nav_name">Product List</span> </a>
+                        <a href="{% url 'edit-company' %}" class="nav_link"> <i class='bx bxs-edit'></i> <span class="nav_name">Edit Shop</span> </a>
                     </div>
                 </div> <a href="{% url 'logout' %}" class="nav_link active"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
             </nav>
@@ -35,83 +35,66 @@
             
             <div class="row">
                 <div class="col-md-4">
-                    <h4>Seller Dashboard</h4>
-                    <h5>> Order History</h5>
+                    <h4>Company Dashboard</h4>
+                    <h5>> Order List</h5>
                 </div>
                 <div class="col-md-4 text-center" style="background-color: #4723D9;color: aliceblue;">
                     <div class=p-2>
-                        <h4>Shop Name: {{ shop_name }}</h4>
+                        <h4>Company Name: {{ com_name }}</h4>
                     </div>
                     
                 </div>
                 <div class="col-md-4 text-end">
                     <h4>Online <i class='bx bxs-hourglass-top'></i></h4>
                 </div>
+
+                <div class="col-md-12 p-5">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Order DateTime</th>
+                              <th scope="col">Order ID</th>
+                              <th scope="col">Seller ID</th>
+                              <th scope="col">Product Name</th>
+                              <th scope="col">Quantity</th>
+                              <th scope="col">Verification</th>
+                              <th scope="col">Delivered?</th>
+                              {% if order.delivered == "Yes" %}
+                              <th scope="col">Delivered DateTime</th>
+                              {% endif %}
+                              <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orderHistory %}
+                            <tr class="table-light">
+                                <th scope="row">{{ order.order_dt }}</th>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.seller_id }}</td>
+                                <td>{{ order.product_name }}</td>
+                                <td>{{ order.quantity }}</td>
+                                <td>{{ order.verified }}</td>
+                                <td>{{ order.delivered }}</td>
+                                {% if order.delivered == "Yes" %}
+                                <td>{{ order.delivered_dt }}</td>
+                                {% endif %}
+                                {% if order.delivered == "No" %}
+                                <form method="POST" action="{% url 'make-delivered' order.id %}">
+                                    {% csrf_token %}
+                                    <td class="d-flex justify-content-center"><button type="submit" class="btn btn-danger">Make Delivered</button></td>
+                                </form>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
                 
                 
-                <div class="col-md-12 pt-4">
-                    <div class="card" style="background-color: #4723D9;color: white;">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                  <th scope="col">Purchase Date</th>
-                                  <th scope="col">Cart ID</th>                                 
-                                  <th scope="col">Customer ID</th>
-                                  <th scope="col">Quantity</th>
-                                  <th scope="col">Total</th>
-                                  <th scope="col">Destination</th>
-                                  <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for order in orders %}
-                                <tr class="table-light">
-                                    <th scope="row">{{ order.purchase_date }}</th>
-                                    <td>{{ order.cart_id }}</td>
-                                    <td>{{ order.customer_id }}</td>
-                                    <td>{{ order.quantity }}</td>
-                                    <td>{{ order.total }}&#2547</td>
-                                    <td>{{ order.d_address }}</td>
-                                    {% if order.verified == "No" %}
-                                    <form method="POST" action="{% url 'verify-order-seller' order.id %}">
-                                        {% csrf_token %}
-                                        <td class="d-flex justify-content-center"><button type="submit" class="btn btn-warning">Verify</button></td>
-                                    </form>
-                                    {% endif %}
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>                              
-                </div>
-                <div class="col-md-12 pt-4">
-                    <div class="card" style="background-color: #4723D9;color: white;">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                  
-                                  <th scope="col">Cart ID</th>                                 
-                                  <th scope="col">Customer ID</th>
-                                  <th scope="col">Product Name</th>
-                                  <th scope="col">Total</th>
-                                  <th scope="col">Prescription</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for cart in carts %}
-                                <tr class="table-light">
-                                    <th scope="row">{{ cart.id }}</th>
-                                    <td>{{ cart.customer_id }}</td>
-                                    <td>{{ cart.product_name }}</td>
-                                    <td>{{ cart.total_price }}&#2547</td>
-                                    <td>{{ cart.prescription }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                               
-                </div>
+                
+                
+                
+            </div>
 
             
         </div>

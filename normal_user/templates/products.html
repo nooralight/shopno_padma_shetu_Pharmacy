@@ -102,7 +102,7 @@
                         <form action="{% url 'search-products' %}" method="post">
                             {% csrf_token %}
                             <div class="input-group">
-                                <input type="text" name="search" class="form-control rounded" placeholder="Search products" aria-label="Search" aria-describedby="search-addon" />
+                                <input type="text" name="search" class="form-control rounded" placeholder="Search products by name or generics" aria-label="Search" aria-describedby="search-addon" />
                                 <button type="submit" class="btn btn-outline-primary bg-dark">search</button>
                               </div>
                         </form>
