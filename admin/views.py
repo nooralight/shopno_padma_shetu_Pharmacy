@@ -12,13 +12,15 @@ def gotoAdmin(request):
         if user and user.isAdmin=='1':     
             users = User.objects.exclude(isAdmin='1')
             sellers  = Seller.objects.all()
+            companies = Company.objects.all()
             userCount = len(users)
             sellerCount = len(sellers)
+            companyCount = len(companies)
             orders = OrderHistory_customer.objects.filter(verified="Yes")
             total_revenue = 0.00
             for order in orders:
                 total_revenue += float(order.total)
-            context = {"userCount": userCount,"sellerCount":sellerCount,"total_revenue":total_revenue}
+            context = {"userCount": userCount,"sellerCount":sellerCount,"companyCount":companyCount,"total_revenue":total_revenue}
             return render(request,'admin_panel.html',context)
         else:
             return redirect('/account/logout/')
