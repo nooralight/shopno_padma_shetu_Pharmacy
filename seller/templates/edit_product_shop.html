@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <h4>Seller Dashboard</h4>
-                    <h5>> Add Product</h5>
+                    <h5>> Edit Product</h5>
                 </div>
                 <div class="col-md-4 text-center" style="background-color: #4723D9;color: aliceblue;">
                     <div class=p-2>
@@ -49,121 +49,64 @@
                 </div>
 
                 <div class="col-md-12 p-5">
-                    <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+                    {% if action == "edit_product" %}
+                    <form action="{% url 'edit-shop-product' product.id %}" method="post">
                         {% csrf_token %}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputPasswonamerd1" class="form-label mt-4">Name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Product Name">
+                                <input type="text" class="form-control" name="name" id="name" value="{{ product.name }}">
                               </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="brand" class="form-label mt-4">Brand Name</label>
-                                <input type="text" class="form-control" id="brand" name="brand_name" placeholder="Brand Name">
+                                <input type="text" class="form-control" id="brand" name="brand_name" value="{{ product.brand_name }}">
                               </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="photo" class="col-form-label mt-3">Upload Photo</label>
-                                <input type="file" class="form-control" id="photo" name="upload" accept="image/*">
-                              </div>
-                        </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="quantity" class="form-label mt-4">Quantity</label>
-                                <input type="text" class="form-control" name="quantity" id="quantity">
+                                <input type="text" class="form-control" name="quantity" id="quantity" value="{{ product.quantity }}">
                               </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="category" class="form-label mt-4">Category</label>
-                                <select class="form-select" name="category" aria-label="Default select example">
-                                    <option selected value="OTC_Medicines">OTC Medicines</option>
-                                    <option value="Prescription_Medicines">Prescription Medicines</option>
-                                    <option value="Healthcare_Products">Healthcare Products</option>
-                                    <option value="Device_Equipment">Device and Equipment</option>
-                                    <option value="Baby_Care">Baby Care</option>
-                                    <option value="Men_Products">Men's Products</option>
-                                    <option value="Women_Product">Women's Product</option>
-                                    <option value="Kid_Products">Kid's Products</option>
-                                    
-                                </select>
-                              </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="sub_category" class="form-label mt-4">Sub Category</label>
-                                <select class="form-select" id="sub_category" name="sub_category" aria-label="Default select example">
-                                    <option selected value="Tablet">Tablet</option>
-                                    <option value="Tablet_Pot">Tablet pot</option>
-
-                                    <option value="Baby_Wipes">Baby Wipes</option>
-                                    <option value="Cream">Cream</option>
-                                    <option value="Device">Device</option>
-                                    <option value="Dropper_Dobble">Dropper_Dobble</option>
-                                    <option value="Face_Wash">Face Wash</option>
-                                    <option value="Fitness_Equipment">Fitness Equipment</option>
-                                    <option value="Gel">Gel</option>
-                                    <option value="Lotion">Lotion</option>
-                                    <option value="Milk_Powder">Milk Powders</option>
-                                    <option value="Nebuliser">Nebuliser</option>                                         
-                                    <option value="Oral_Solution">Oral Solution</option>
-                                    <option value="Oral_Suspension">Oral Suspension</option>
-
-                                    <option value="Solution">Solution</option>
-                                    <option value="Suspension">Suspension</option>
-                                    <option value="Spray">Spray</option>
-                                    <option value="Shaving_Foam">Shaving Foam</option> 
-                                    <option value="Soap">Soap</option>
-                                    <option value="Sanitary_Napkin">Sanitary Napkin</option>                                          
-                                    <option value="Surgical">Surgical</option>
-                                    <option value="Syringe">Syringe</option>
-                                    <option value="Test_Device">Test Device</option>
-                                    
-                                </select>
-                              </div>
-                        </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="price" class="form-label mt-4">Price</label>
-                                <input type="text" class="form-control" name="price" id="price">
+                                <input type="text" class="form-control" name="price" id="price" value="{{ product.price }}">
                               </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="contradiction" class="form-label pt-4">Generic Name</label>                         
-                                <input type="text" id="contradiction" name="generic_name" class="form-control" aria-describedby="contradiction">
-                            </div> 
+                                <label for="generic_name" class="form-label pt-4">Generic Name</label>                         
+                                <input type="text" id="generic_name" name="generic_name" class="form-control" value="{{ product.generic_name }}">
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="contradiction" class="form-label pt-4">contradiction</label>                         
-                                <input type="text" id="contradiction" name="contradiction" class="form-control" aria-describedby="contradiction">
+                                <label for="contradiction" class="form-label pt-4">Contradiction</label>                         
+                                <input type="text" id="contradiction" name="contradiction" class="form-control" value="{{ product.contradiction }}">
                             </div>                  
-                            
-                        
                         </div>
                         <div class="col-md-6">
                             
                             <div class="form-group">
-                                <label for="pharmacology" class="form-label pt-4">pharmacology</label>
+                                <label for="pharmacology" class="form-label pt-4">Pharmacology</label>
                             
-                                <input type="text" id="pharmacology" name="pharmacology" class="form-control" aria-describedby="pharmacology">
+                                <input type="text" id="pharmacology" name="pharmacology" class="form-control" value="{{ product.pharmacology }}">
                             </div>
                             
                         
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="interaction" class="form-label pt-4">interaction</label>                           
-                                <input type="text" id="interaction" name="interaction" class="form-control" aria-describedby="interaction">
+                                <label for="interaction" class="form-label pt-4">Interaction</label>                           
+                                <input type="text" id="interaction" name="interaction" class="form-control" value="{{ product.interaction }}">
                             </div>
                             
                             
@@ -174,15 +117,15 @@
                             <div class="form-group">
                                 <label for="side_effects" class="form-label pt-4">side effects</label>
                             
-                                <input type="text" id="side_effects" name="side_effects" class="form-control" aria-describedby="side_effects">
+                                <input type="text" id="side_effects" name="side_effects" class="form-control" value="{{ product.side_effects }}">
                             </div>
                             
                         
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="pregnancy" class="form-label pt-4">pregnancy</label>                      
-                                <input type="text" id="pregnancy" name="pregnancy" class="form-control" aria-describedby="pregnancy">
+                                <label for="pregnancy" class="form-label pt-4">Pregnancy</label>                      
+                                <input type="text" id="pregnancy" name="pregnancy" class="form-control" value="{{ product.pregnancy }}">
                             </div>
                             
                             
@@ -193,7 +136,7 @@
                             <div class="form-group">
                                 <label for="warnings" class="form-label pt-4">warnings</label>
                             
-                            <input type="text" id="warnings" name="warnings" class="form-control" aria-describedby="warnings">
+                            <input type="text" id="warnings" name="warnings" class="form-control" value="{{ product.warnings }}">
                             </div>
                             
                         
@@ -202,7 +145,7 @@
                             <div class="form-group">
                                 <label for="therapeutic" class="form-label pt-4">therapeutic</label>
                             
-                            <input type="text" id="therapeutic" name="therapeutic" class="form-control" aria-describedby="therapeutic">
+                            <input type="text" id="therapeutic" name="therapeutic" class="form-control" value="{{ product.therapeutic }}">
                             </div>
                             
                             
@@ -213,7 +156,7 @@
                             <div class="form-group">
                                 <label for="storage_condition" class="form-label pt-4">storage condition</label>
                             
-                            <input type="text" id="storage_condition" name="storage_condition" class="form-control" aria-describedby="storage_condition">
+                            <input type="text" id="storage_condition" name="storage_condition" class="form-control" value="{{ product.storage_condition }}">
                             </div>
                                                   
                         </div>
@@ -226,7 +169,26 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                    </form>
+                    {% else %}
+                    <form action="{% url 'edit-shop-product-image' product.id  %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row p-5">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="photo" class="col-form-label mt-3">Upload Photo</label>
+                                    <input type="file" class="form-control" id="photo" name="upload" accept="image/*">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">                          
+                                <div class="d-grid gap-2 pt-4">
+                                    <button class="btn btn-lg btn-primary" type="submit">Submit</button>                  
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    {% endif %}
                 </div>
                 
                 

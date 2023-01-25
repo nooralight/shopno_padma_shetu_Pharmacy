@@ -56,19 +56,17 @@
                     <div class="row">
                         {% for company in companies %}
                         <a href="{% url 'company-products' company.id %}" class="custom-card">
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-header bg-dark text-white ">
-                                        <h3 class="text-center">{{ company.com_name }}</h3> 
-                                    </div>
-                                    <div class="card-body">
-                                        <p>Address: {{ company.com_address }} </p>
-                                        <p>Registration No: {{ company.com_reg_no }}</p>
-                                        <p>Tin No: {{ company.tin_no }}</p>
-                                    </div>
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{ company.company_logo }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                  <h5 class="card-title">{{ company_com_name }}</h5>
+                                  <p class="card-text">Address: {{ company.com_address}}</p>
+                                  <p class="card-text">Registration No: {{ company.com_reg_no}}</p>
+                                  <p class="card-text">Tin No: {{ company.tin_no}}</p>
                                 </div>
-                            </div>
+                              </div>
                         </a>
+                        
                         
                         {% endfor %}
                     </div>

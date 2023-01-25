@@ -71,7 +71,15 @@ def deleteProduct(request, id):
 def editCompany(request):
     if 'company_id' in request.session:
         company = Company.objects.get(id=request.session['company_id'])
-        context = {"company":company,"com_name":company.com_name}
+        context = {"company":company,"com_name":company.com_name,"action":"edit_company"}
+        return render(request,"edit_company.html",context)
+    else:
+        return redirect('/account/logout/')
+
+def editCompany_logo(request):
+    if 'company_id' in request.session:
+        company = Company.objects.get(id=request.session['company_id'])
+        context = {"company":company,"com_name":company.com_name,"action":"logo"}
         return render(request,"edit_company.html",context)
     else:
         return redirect('/account/logout/')
@@ -87,6 +95,21 @@ def editing_company(request):
         com_address = request.POST.get("com_address")
         com_reg_no = request.POST.get("com_reg_no")
         company.update(com_name=com_name,admin_name =admin_name,com_email = com_email,com_phone = com_phone,tin_no=tin_no,com_address=com_address,com_reg_no= com_reg_no)
+        #shop.save()
+        return redirect('/company/')
+    else:
+        return redirect('/account/logout/')
+
+def editing_company_logo(request):
+    if 'company_id' in request.session:
+        company = Company.objects.filter(id=request.session['company_id'])
+        company_U = Company.objects.get(id=request.session['company_id'])
+        upload = request.FILES['photo']
+        fss = FileSystemStorage()
+        name_photo = str(company_U.id)+"_com_logo_"+company_U.com_name+upload.name[-5:]
+        file = fss.save(name_photo, upload)
+        file_url = fss.url(file)
+        company.update(company_logo = file_url)
         #shop.save()
         return redirect('/company/')
     else:

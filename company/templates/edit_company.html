@@ -51,71 +51,91 @@
                 
                 <div class="col-md-12 pt-4">
                     <div class="card" style="background-color: #4723D9;color: white;">
+                        {% if action == "edit_company" %}
                         <form action="{% url 'editing-company' %}" method="post">
+                                {% csrf_token %}
+                                <div class="row p-5">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="name" class="form-label mt-4">Company Name</label>
+                                            <input type="text" class="form-control" name="com_name" id="name" value="{{ company.com_name }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="l_name" class="form-label mt-4">Admin Name</label>
+                                            <input type="text" class="form-control" id="l_name" name="admin_name" value="{{ company.admin_name }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="shop_name" class="form-label mt-4">Company Email</label>
+                                            <input type="text" class="form-control" name="com_email" id="shop_name" value="{{ company.com_email }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="email" class="form-label mt-4">Company Phone Number</label>
+                                            <input type="text" class="form-control" name="com_phone" id="email" value="{{ company.com_phone }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="phone" class="form-label mt-4">Tin No</label>
+                                            <input type="text" class="form-control" name="tin_no" id="phone" value="{{ company.tin_no }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="phone" class="form-label mt-4">Company Address</label>
+                                            <input type="text" class="form-control" name="com_address" id="phone" value="{{ company.com_address }}">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            
+                                            <label for="website" class="form-label mt-4">Website</label>
+                                            {% if company.website == None %}
+                                            <input type="text" class="form-control" name="website" id="website">
+                                            {% else %}
+                                            <input type="text" class="form-control" name="website" id="website" value="{{ company.website }}">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="com_reg_no" class="form-label mt-4">Company Registration No</label>
+                                            <input type="text" class="form-control" name="com_reg_no" id="com_reg_no" value="{{ company.com_reg_no }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">                          
+                                        <div class="d-grid gap-2 pt-4">
+                                            <button class="btn btn-lg btn-primary" type="submit">Submit</button>                  
+                                        </div>
+                                    </div>
+                                </div>
+                        </form>
+                        {% else %}
+                        <form action="{% url 'editing-company-logo' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="row p-5">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="name" class="form-label mt-4">Company Name</label>
-                                        <input type="text" class="form-control" name="com_name" id="name" value="{{ company.com_name }}">
+                                        <label for="photo" class="col-form-label mt-3">Upload Photo</label>
+                                        <input type="file" class="form-control" id="photo" name="photo" accept="image/*">
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="l_name" class="form-label mt-4">Admin Name</label>
-                                        <input type="text" class="form-control" id="l_name" name="admin_name" value="{{ company.admin_name }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="shop_name" class="form-label mt-4">Company Email</label>
-                                        <input type="text" class="form-control" name="com_email" id="shop_name" value="{{ company.com_email }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="email" class="form-label mt-4">Company Phone Number</label>
-                                        <input type="text" class="form-control" name="com_phone" id="email" value="{{ company.com_phone }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="phone" class="form-label mt-4">Tin No</label>
-                                        <input type="text" class="form-control" name="tin_no" id="phone" value="{{ company.tin_no }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="phone" class="form-label mt-4">Company Address</label>
-                                        <input type="text" class="form-control" name="com_address" id="phone" value="{{ company.com_address }}">
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        
-                                        <label for="website" class="form-label mt-4">Website</label>
-                                        {% if company.website == None %}
-                                        <input type="text" class="form-control" name="website" id="website">
-                                        {% else %}
-                                        <input type="text" class="form-control" name="website" id="website" value="{{ company.website }}">
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="com_reg_no" class="form-label mt-4">Company Registration No</label>
-                                        <input type="text" class="form-control" name="com_reg_no" id="com_reg_no" value="{{ company.com_reg_no }}">
-                                    </div>
-                                </div>
                                 <div class="col-md-12">                          
                                     <div class="d-grid gap-2 pt-4">
                                         <button class="btn btn-lg btn-primary" type="submit">Submit</button>                  
                                     </div>
                                 </div>
                             </div>
-                    </form>
+                        </form>
+                        {% endif %}
                 </div>
                 
                 

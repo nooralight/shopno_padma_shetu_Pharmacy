@@ -9,6 +9,8 @@ urlpatterns=[
     path('delete_product_company/<int:id>' , views.deleteProduct, name= 'delete-product-company'),
     path('edit_company/',views.editCompany, name="edit-company"),
     path('editing_company',views.editing_company, name='editing-company'),
+    path('edit_company_logo/',views.editCompany_logo, name="edit-company-logo"),
+    path('editing_company_logo',views.editing_company_logo, name='editing-company-logo'),
     path('order_lists/',views.gotoOrderList_sellers,name="order-lists-sellers"),
     path('make_delivered/<int:id>/',views.make_delivered,name="make-delivered"),
 ]

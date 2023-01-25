@@ -110,7 +110,7 @@ def login_shop(request):
         else:
             print("wrong password")
             return redirect('seller-Login')
-    except User.DoesNotExist:
+    except Seller.DoesNotExist:
         print("Email or Phone does not exist")
         return redirect('seller-Login')
     #return redirect('createyourshop')
@@ -132,7 +132,7 @@ def login_company(request):
         else:
             print("wrong password")
             return redirect('company-Login')
-    except User.DoesNotExist:
+    except Company.DoesNotExist:
         print("Email or Phone does not exist")
         return redirect('company-Login')
     #return redirect('createyourshop')

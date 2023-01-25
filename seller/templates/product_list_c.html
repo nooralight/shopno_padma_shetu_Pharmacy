@@ -95,10 +95,14 @@
                                 <td>{{ product.price }}</td>
                                 <td>{{ product.product_photo }}</td>
                                 <td>{{ product.quantity }}</td>
+                                <td class="d-flex justify-content-center">
                                 <form method="POST" action="{% url 'delete-product' product.id %}">
                                     {% csrf_token %}
-                                    <td class="d-flex justify-content-center"><button type="submit" class="btn btn-danger">Delete</button></td>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
+                                <a href="{% url 'editProduct-shop' product.id %}" class="btn btn-primary">Edit</a>
+                                <a href="{% url 'editProduct-shop-image' product.id %}" class="btn btn-success">Change Photo</a>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>

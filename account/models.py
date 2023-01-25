@@ -22,6 +22,7 @@ class Company(models.Model):
     website = models.TextField(max_length=255)
     com_reg_no = models.TextField(max_length=255)
     password = models.TextField(max_length=255)
+    company_logo = models.TextField(max_length=255)
 
     def __str__(self):
         return self.com_name

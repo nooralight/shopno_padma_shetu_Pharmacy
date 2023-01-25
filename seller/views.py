@@ -48,7 +48,7 @@ def upload(request):
             warnings= request.POST.get("warnings")
             therapeutic= request.POST.get("therapeutic")
             storage_condition = request.POST.get("storage_condition")
-            name_photo = str(shop.id)+"_"+name+upload.name[-4:]
+            name_photo = str(shop.id)+"_"+name+upload.name[-5:]
             file = fss.save(name_photo, upload)
             file_url = fss.url(file)
             product = Shop_product.objects.create(name = name, brand_name = brand_name,quantity=quantity,generic_name= generic_name, price = price, category= category, product_photo = file_url,shop_id=shop.id,shop_name = shop.shop_name,sub_category=sub_category,
@@ -67,6 +67,52 @@ def gotoListProduct(request):
         return render(request, "product_list_c.html",context)
     else:
         return redirect('/account/logout/')
+
+def gotoEdit_product_shop(request,id):
+    product = Shop_product.objects.get(id=id)
+    shop = Seller.objects.get(id = request.session['seller_id'])
+    context = {"product":product,"shop_name":shop.shop_name,"action":"edit_product"}
+    return render(request,"edit_product_shop.html",context)
+
+def gotoEdit_Image_product_shop(request,id):
+    product = Shop_product.objects.get(id=id)
+    shop = Seller.objects.get(id = request.session['seller_id'])
+    context = {"product":product,"shop_name":shop.shop_name,"action":"image"}
+    return render(request,"edit_product_shop.html",context)
+
+def edit_product_shop(request,id):
+    product = Shop_product.objects.filter(id=id)
+    name = request.POST.get("name")
+    brand_name = request.POST.get("brand_name")
+    quantity = request.POST.get("shop_name")
+    price = request.POST.get("price")
+    generic_name = request.POST.get("generic_name")
+    quantity = request.POST.get("quantity")
+    contradiction= request.POST.get("contradiction")
+    pharmacology= request.POST.get("pharmacology")
+    interaction= request.POST.get("interaction")
+    side_effects= request.POST.get("side_effects")
+    pregnancy= request.POST.get("pregnancy")
+    warnings= request.POST.get("warnings")
+    therapeutic= request.POST.get("therapeutic")
+    storage_condition = request.POST.get("storage_condition")
+    product.update(name = name, brand_name = brand_name,quantity=quantity,generic_name= generic_name, price = price,
+            contradiction=contradiction,pharmacology=pharmacology,interaction=interaction,side_effects=side_effects,pregnancy=pregnancy,warnings=warnings,
+            therapeutic=therapeutic,storage_condition=storage_condition)
+    return redirect('/seller/product_list/')
+
+def edit_product_image_shop(request,id):
+    product = Shop_product.objects.filter(id=id)
+    product_U = Shop_product.objects.get(id=id)
+    shop = Seller.objects.get(id=request.session['seller_id'])
+    name = product_U.name
+    upload = request.FILES['upload']
+    fss = FileSystemStorage()
+    name_photo = str(shop.id)+"_"+name+upload.name[-5:]
+    file = fss.save(name_photo, upload)
+    file_url = fss.url(file)
+    product.update( product_photo = file_url)
+    return redirect('/seller/product_list/')
 def editShop(request):
     if 'seller_id' in request.session:
         shop = Seller.objects.get(id=request.session['seller_id'])
@@ -118,7 +164,7 @@ def changePic(request):
         shop = Seller.objects.filter(id=request.session['seller_id'])
         photo = request.FILES['photo']
         fss = FileSystemStorage()
-        name_photo = str(shop[0].id)+"_"+shop[0].email+photo.name[-4:]
+        name_photo = str(shop[0].id)+"_"+shop[0].email+photo.name[-5:]
         file = fss.save(name_photo, photo)
         file_url = fss.url(file)
         shop.update(photo=file_url)
