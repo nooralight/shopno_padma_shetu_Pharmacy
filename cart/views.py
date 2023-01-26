@@ -44,21 +44,21 @@ def addingCart(request,id):
                 if request.POST.get("purchase_quantity_pc") and int(request.POST.get("purchase_quantity_pc"))>0:
                     quantity = request.POST.get("purchase_quantity_pc")
                     b_quantity = str(quantity)+" pc"
-                    total_price = int(product.price)*int(quantity)
+                    total_price = float(product.price)*int(quantity)
                 elif request.POST.get("purchase_quantity_strip") and int(request.POST.get("purchase_quantity_strip"))>0:
                     quantity = request.POST.get("purchase_quantity_strip")
                     b_quantity = str(quantity)+" strip"
-                    total_price = int(product.price)*(int(quantity)*10)
+                    total_price = float(product.price)*(int(quantity)*10)
                 elif request.POST.get("purchase_quantity_box") and int(request.POST.get("purchase_quantity_box"))>0:
                     quantity = request.POST.get("purchase_quantity_box")
                     b_quantity = str(quantity)+" box"
-                    total_price = int(product.price)*(int(quantity)*100)
+                    total_price = float(product.price)*(int(quantity)*100)
                 else:
                     return redirect("/")
             else:
                 quantity = request.POST.get("purchase_quantity_pc")
                 b_quantity = str(quantity)+" pc"
-                total_price = int(product.price)*int(quantity)
+                total_price = float(product.price)*int(quantity)
             
             current_dateTime = datetime.now()
             cart = Cart.objects.create(product_id = int(product.id),shop_id = product.shop_id,product_name = product.name,quantity= b_quantity,total_price=total_price,order_date=current_dateTime,customer_id = int(request.session['user_id']))
