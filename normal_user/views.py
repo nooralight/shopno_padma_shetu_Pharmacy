@@ -86,6 +86,9 @@ def gotoContact(request):
 def gotoAbout(request):
     return render(request,'about.html')
 
+def gotoOnlineDoctors(request):
+    return render(request, "online_doctors.html")
+
 def gotoProductDetails(request,id):
     if 'user_id' in request.session:
         user = User.objects.get(id = request.session['user_id'])
