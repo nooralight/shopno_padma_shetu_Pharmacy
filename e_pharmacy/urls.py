@@ -22,7 +22,6 @@ urlpatterns = [
     path('account/', include('account.urls'), name = 'account'),
     path('',include('normal_user.urls'),name='normal-home'),
     path('admin/',include('admin.urls'),name='admin'),
-    path('doctor/',include('doctor.urls'),name='doctor'),
     path('seller/',include('seller.urls'),name='seller'),
     path('cart/',include('cart.urls'),name='cart'),
     path('company/',include('company.urls'),name='company'),
