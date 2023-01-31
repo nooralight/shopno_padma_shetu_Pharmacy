@@ -32,5 +32,7 @@ urlpatterns=[
     path('product/category/Woman/',views.product_category_Woman, name= 'product-category-women'),
     path('product/category/Kid/',views.product_category_Kid, name= 'product-category-kid'),
     path('online_doctors/',views.gotoOnlineDoctors,name="gotoDoctors-online"),
+    path('goto_myProfile/',views.goto_my_profile,name="my-profile"),
+    path('update_user_profile/',views.update_user_profile,name="update-user-profile"),
 
 ]

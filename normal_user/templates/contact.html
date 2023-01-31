@@ -173,7 +173,7 @@
                                 <div class="select_option mb-0 clearfix">
                                     
                                     <ul>
-                                        <li><a class="custom-card" href="#">Profile</a></li>
+                                        <li><a class="custom-card" href="{% url 'my-profile' %}">Profile</a></li>
                                         <li><a class="custom-card" href="{% url 'goto-cart' %}">My Cart</a></li>
                                         <li><a class="custom-card" href="{% url 'logout' %}">Signout</a></li>
                                     </ul>
@@ -409,7 +409,7 @@
                             <div class="footer_widget footer_useful_links">
                                 <h3 class="footer_widget_title text-uppercase">Custom area</h3>
                                 <ul class="ul_li_block">
-                                    <li><a href="#!">My Account</a></li>
+                                    <li><a href="{% url 'my-profile' %}">My Account</a></li>
                                     <li><a href="{% url 'goto-Orders' %}">My Orders</a></li>
                                     <li><a href="{% url 'goto-cart' %}">My Cart</a></li>
                                 </ul>

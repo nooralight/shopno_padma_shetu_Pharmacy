@@ -35,7 +35,7 @@
             
             <div class="row">
                 <div class="col-md-4">
-                    <h4>Seller Dashboard</h4>
+                    <h4>E-Retailer's Dashboard</h4>
                     <h5>> Order History</h5>
                 </div>
                 <div class="col-md-4 text-center" style="background-color: #4723D9;color: aliceblue;">
@@ -71,7 +71,7 @@
                                     <td>{{ order.customer_id }}</td>
                                     <td>{{ order.quantity }}</td>
                                     <td>{{ order.total }}&#2547</td>
-                                    <td>{{ order.d_address }}</td>
+                                    <td>{{ order.address }}</td>
                                     {% if order.verified == "No" %}
                                     <form method="POST" action="{% url 'verify-order-seller' order.id %}">
                                         {% csrf_token %}

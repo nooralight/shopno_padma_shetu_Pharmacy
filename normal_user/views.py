@@ -378,3 +378,36 @@ def product_category_Kid(request):
             return redirect('/account/logout/')
     else:
         return redirect('/account/login/')
+
+def goto_my_profile(request):
+    if 'user_id' in request.session:
+        user = User.objects.get(id = request.session['user_id'])
+        if user and user.isAdmin=='0':
+            
+            user = User.objects.get(id=request.session['user_id'])
+            context= {"user":user}
+            return render(request,'my_profile.html', context)
+        else:
+            return redirect('/account/logout/')
+    else:
+        return redirect('/account/login/')
+def update_user_profile(request):
+    if 'user_id' in request.session:
+
+        user = User.objects.get(id = request.session['user_id'])
+        if user and user.isAdmin=='0':
+            first_name = request.POST.get("first_name")
+            last_name = request.POST.get("last_name")
+            email = request.POST.get("email")
+            phone = request.POST.get("phone")
+            user = User.objects.filter(id=request.session['user_id'])
+            user.update(first_name = first_name,last_name=last_name,email=email,phone=phone)
+            products = Shop_product.objects.order_by('-id')[:10:-1]
+            logged = True
+            context = {"logged":logged,"products":products}
+            return render(request, 'index_normal.html',context)
+            #return render(request,'my_profile.html', context)
+        else:
+            return redirect('/account/logout/')
+    else:
+        return redirect('/account/login/')
