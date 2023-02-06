@@ -56,7 +56,7 @@ def addingCart(request,id):
                 else:
                     return redirect("/")
             else:
-                if int(request.POST.get("purchase_quantity_pc")>0):
+                if int(request.POST.get("purchase_quantity_pc"))>0:
                     quantity = request.POST.get("purchase_quantity_pc")
                     b_quantity = str(quantity)+" pc"
                     total_price = float(product.price)*int(quantity)

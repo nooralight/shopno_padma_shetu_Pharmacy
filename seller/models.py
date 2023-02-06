@@ -22,7 +22,7 @@ class Shop_product(models.Model):
     pregnancy = models.TextField(max_length=1500,null=True,blank=True)
     warnings = models.TextField(max_length=1500,null=True,blank=True)
     therapeutic = models.TextField(max_length=1500,null=True,blank=True)
-    storage_condition = models.TextField(max_length=1500,null=True,blank=True)
+    #storage_condition = models.TextField(max_length=1500,null=True,blank=True)
     
 
     def __str__(self):
