@@ -114,7 +114,10 @@ def category_OTC(request,id):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        shop = Seller.objects.get(id=int(id))
+        products = Shop_product.objects.filter(shop_id = int(id),category ="OTC_Medicines")
+        context = {"shop":shop,"products":products}
+        return render(request,'shop_product_grid.html', context)
 
 def category_Pres(request,id):
     if 'user_id' in request.session:
@@ -127,7 +130,10 @@ def category_Pres(request,id):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        shop = Seller.objects.get(id=int(id))
+        products = Shop_product.objects.filter(shop_id = int(id),category ="Prescription_Medicines")
+        context = {"shop":shop,"products":products}
+        return render(request,'shop_product_grid.html', context)
 
 def category_Health(request,id):
     if 'user_id' in request.session:
@@ -140,7 +146,10 @@ def category_Health(request,id):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        shop = Seller.objects.get(id=int(id))
+        products = Shop_product.objects.filter(shop_id = int(id),category ="Healthcare_Products")
+        context = {"shop":shop,"products":products}
+        return render(request,'shop_product_grid.html', context)
 
 def category_Device(request,id):
     if 'user_id' in request.session:
@@ -153,7 +162,10 @@ def category_Device(request,id):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        shop = Seller.objects.get(id=int(id))
+        products = Shop_product.objects.filter(shop_id = int(id),category ="Device_Equipment")
+        context = {"shop":shop,"products":products}
+        return render(request,'shop_product_grid.html', context)
 
 def category_Baby(request,id):
     if 'user_id' in request.session:
@@ -166,7 +178,10 @@ def category_Baby(request,id):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        shop = Seller.objects.get(id=int(id))
+        products = Shop_product.objects.filter(shop_id = int(id),category ="Baby_Care")
+        context = {"shop":shop,"products":products}
+        return render(request,'shop_product_grid.html', context)
 
 def category_Men(request,id):
     if 'user_id' in request.session:
@@ -179,7 +194,10 @@ def category_Men(request,id):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        shop = Seller.objects.get(id=int(id))
+        products = Shop_product.objects.filter(shop_id = int(id),category ="Men_Products")
+        context = {"shop":shop,"products":products}
+        return render(request,'shop_product_grid.html', context)
 
 def category_Woman(request,id):
     if 'user_id' in request.session:
@@ -192,7 +210,10 @@ def category_Woman(request,id):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        shop = Seller.objects.get(id=int(id))
+        products = Shop_product.objects.filter(shop_id = int(id),category ="Women_Product")
+        context = {"shop":shop,"products":products}
+        return render(request,'shop_product_grid.html', context)
 
 def category_Kid(request,id):
     if 'user_id' in request.session:
@@ -205,7 +226,10 @@ def category_Kid(request,id):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        shop = Seller.objects.get(id=int(id))
+        products = Shop_product.objects.filter(shop_id = int(id),category ="Kid_Product")
+        context = {"shop":shop,"products":products}
+        return render(request,'shop_product_grid.html', context)
 
 def search_shop_product(request,id):
     search = request.POST.get("search")
@@ -286,7 +310,9 @@ def product_category_OTC(request):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        products = Shop_product.objects.filter(category ="OTC_Medicines")
+        context = {"products":products}
+        return render(request,'products.html', context)
 
 def product_category_Pres(request):
     if 'user_id' in request.session:
@@ -299,7 +325,9 @@ def product_category_Pres(request):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        products = Shop_product.objects.filter(category ="Prescription_Medicines")
+        context = {"products":products}
+        return render(request,'products.html', context)
 
 def product_category_Health(request):
     if 'user_id' in request.session:
@@ -312,7 +340,9 @@ def product_category_Health(request):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        products = Shop_product.objects.filter(category ="Healthcare_Products")
+        context = {"products":products}
+        return render(request,'products.html', context)
 
 def product_category_Device(request):
     if 'user_id' in request.session:
@@ -325,7 +355,9 @@ def product_category_Device(request):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        products = Shop_product.objects.filter(category ="Device_Equipment")
+        context = {"products":products}
+        return render(request,'products.html', context)
 
 def product_category_Baby(request):
     if 'user_id' in request.session:
@@ -338,7 +370,9 @@ def product_category_Baby(request):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        products = Shop_product.objects.filter(category ="Baby_Care")
+        context = {"products":products}
+        return render(request,'products.html', context)
 
 def product_category_Men(request):
     if 'user_id' in request.session:
@@ -351,7 +385,9 @@ def product_category_Men(request):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        products = Shop_product.objects.filter(category ="Men_Products")
+        context = {"products":products}
+        return render(request,'products.html', context)
 
 def product_category_Woman(request):
     if 'user_id' in request.session:
@@ -364,7 +400,9 @@ def product_category_Woman(request):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        products = Shop_product.objects.filter(category ="Women_Product")
+        context = {"products":products}
+        return render(request,'products.html', context)
 
 def product_category_Kid(request):
     if 'user_id' in request.session:
@@ -377,7 +415,9 @@ def product_category_Kid(request):
         else:
             return redirect('/account/logout/')
     else:
-        return redirect('/account/login/')
+        products = Shop_product.objects.filter(category ="Kid_Product")
+        context = {"products":products}
+        return render(request,'products.html', context)
 
 def goto_my_profile(request):
     if 'user_id' in request.session:
