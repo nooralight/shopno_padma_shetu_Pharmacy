@@ -221,7 +221,7 @@ def making_order(request,company_id,id):
         n = 7
         verified = ''.join(random.choices(string.ascii_letters, k=n))
         company = Company.objects.get(id = int(company_id))
-        making_order = OrderHistory_seller.objects.create(company_id = company_id,company_name= company.com_name,total_price = total_price,seller_id = seller.id,product_name = product.name,quantity = quantity,order_dt = current_dateTime,verified = verified)
+        making_order = OrderHistory_seller.objects.create(company_id = company_id,shop_name = seller.shop_name,shop_email = seller.email,shop_phone = seller.phone,company_name= company.com_name,total_price = total_price,seller_id = seller.id,product_name = product.name,quantity = quantity,order_dt = current_dateTime,verified = verified)
         making_order.save()
         s_id = str(company_id)
         return redirect('/seller/company_products/'+s_id)

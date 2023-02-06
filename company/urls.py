@@ -13,4 +13,9 @@ urlpatterns=[
     path('editing_company_logo',views.editing_company_logo, name='editing-company-logo'),
     path('order_lists/',views.gotoOrderList_sellers,name="order-lists-sellers"),
     path('make_delivered/<int:id>/',views.make_delivered,name="make-delivered"),
+
+    path('edit_company_product/<int:id>/' , views.gotoEdit_product_company, name= 'editProduct-company'),
+    path('edit_company_product_image/<int:id>/' , views.gotoEdit_Image_product_company, name= 'editProduct-company-image'),
+    path('editing_company_product/<int:id>/' , views.edit_product_company, name= 'edit-company-product'),
+    path('editing_company_product_image/<int:id>/' , views.edit_product_image_company, name= 'edit-company-product-image'),
 ]

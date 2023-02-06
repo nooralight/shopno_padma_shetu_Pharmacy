@@ -54,7 +54,10 @@
                             <tr>
                                 <th scope="col">Order DateTime</th>
                               <th scope="col">Order ID</th>
-                              <th scope="col">Seller ID</th>
+                              <th scope="col">Etailer's ID</th>
+                              <th scope="col">Etailer's Shop Name</th>
+                              <th scope="col">Etailer's email</th>
+                              <th scope="col">Etailer's phone</th>
                               <th scope="col">Product Name</th>
                               <th scope="col">Quantity</th>
                               <th scope="col">Verification</th>
@@ -71,6 +74,10 @@
                                 <th scope="row">{{ order.order_dt }}</th>
                                 <td>{{ order.id }}</td>
                                 <td>{{ order.seller_id }}</td>
+                                <td>{{ order.shop_name }}</td>
+                                <td>{{ order.shop_email }}</td>
+                                <td>{{ order.shop_phone }}</td>
+
                                 <td>{{ order.product_name }}</td>
                                 <td>{{ order.quantity }}</td>
                                 <td>{{ order.verified }}</td>

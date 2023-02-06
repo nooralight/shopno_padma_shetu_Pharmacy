@@ -132,3 +132,54 @@ def make_delivered(request, id):
         return redirect('/company/order_lists/')
     else:
         return redirect('/account/logout/')
+
+
+def gotoEdit_product_company(request,id):
+    if 'company_id' in request.session:
+        product = Company_product.objects.get(id=id)
+        company = Company.objects.get(id = request.session['company_id'])
+        context = {"product":product,"com_name":company.com_name,"action":"edit_product"}
+        return render(request,"edit_product_company.html",context)
+    else:
+        return redirect('/account/logout/')
+
+def gotoEdit_Image_product_company(request,id):
+    if 'company_id' in request.session:
+        product = Company_product.objects.get(id=id)
+        company = Company.objects.get(id = request.session['company_id'])
+        context = {"product":product,"com_name":company.com_name,"action":"image"}
+        return render(request,"edit_product_company.html",context)
+    else:
+        return redirect('/account/logout/')
+
+
+def edit_product_company(request,id):
+    product = Company_product.objects.filter(id=id)
+    name = request.POST.get("name")
+    price = request.POST.get("price")
+    generic_name = request.POST.get("generic_name")
+    contradiction= request.POST.get("contradiction")
+    pharmacology= request.POST.get("pharmacology")
+    interaction= request.POST.get("interaction")
+    side_effects= request.POST.get("side_effects")
+    pregnancy= request.POST.get("pregnancy")
+    warnings= request.POST.get("warnings")
+    therapeutic= request.POST.get("therapeutic")
+    storage_condition = request.POST.get("storage_condition")
+    product.update(name = name,generic_name= generic_name, price = price,
+            contradiction=contradiction,pharmacology=pharmacology,interaction=interaction,side_effects=side_effects,pregnancy=pregnancy,warnings=warnings,
+            therapeutic=therapeutic,storage_condition=storage_condition)
+    return redirect('/company/product_list_company/')
+
+def edit_product_image_company(request,id):
+    product = Company_product.objects.filter(id=id)
+    product_U = Company_product.objects.get(id=id)
+    company = Company.objects.get(id=request.session['company_id'])
+    name = product_U.name
+    upload = request.FILES['upload']
+    fss = FileSystemStorage()
+    name_photo = str(company.id)+"_"+name+upload.name[-5:]
+    file = fss.save(name_photo, upload)
+    file_url = fss.url(file)
+    product.update( product_photo = file_url)
+    return redirect('/company/product_list_company/')

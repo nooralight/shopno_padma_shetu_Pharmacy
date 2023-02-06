@@ -104,7 +104,7 @@
                                     <td>{{ cart.customer_id }}</td>
                                     <td>{{ cart.product_name }}</td>
                                     <td>{{ cart.total_price }}&#2547</td>
-                                    <td>{{ cart.prescription }}</td>
+                                    <td><a href="{{ cart.prescription }}">Download</a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
